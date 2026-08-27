@@ -493,6 +493,52 @@ main { -webkit-overflow-scrolling: touch; }
   scroll-snap-type: none; /* 拖动时关闭 snap,释放后恢复 */
 }
 
+/* 卡片轨道视口 + 左右箭头按钮 */
+.teaser__viewport {
+  position: relative;
+  max-width: var(--container-wide);
+  margin: 0 auto;
+}
+.teaser__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--c-border);
+  background: rgba(10, 10, 12, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--c-text);
+  cursor: pointer;
+  z-index: 3;
+  transition: opacity var(--t-fast) var(--ease), background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.teaser__nav:hover:not(:disabled) {
+  background: rgba(10, 10, 12, 0.8);
+  border-color: var(--c-border-strong);
+}
+.teaser__nav:focus-visible {
+  outline: 2px solid var(--c-text);
+  outline-offset: 2px;
+}
+.teaser__nav:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+.teaser__nav svg { width: 18px; height: 18px; }
+.teaser__nav--prev { left: 8px; }
+.teaser__nav--next { right: 8px; }
+
+/* 触摸设备隐藏箭头(原生触摸滑动已足够) */
+@media (hover: none) {
+  .teaser__nav { display: none; }
+}
+
 .card {
   scroll-snap-align: center;
   flex: 0 0 auto;

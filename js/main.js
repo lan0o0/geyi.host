@@ -237,12 +237,41 @@
     window.addEventListener('mousemove', onMove, { passive: true });
   }
 
-  /* ---------- Teaser: drag-to-scroll (desktop mouse) ----------
-   * 首页产品矩阵已有横向滚动容器,触摸设备原生支持滑动;
-   * 这里为桌面端补上鼠标左键拖拽(左/右拖动卡片轨道),让所有产品可见可滑。
+  /* ---------- Teaser: 箭头按钮 + 桌面端鼠标拖拽 ----------
+   * 首页产品矩阵横向滚动:触摸设备原生滑动;桌面端鼠标拖拽;
+   * 另有左右箭头按钮,点击平滑滚动一张卡片,滑到边界自动禁用。
    * ---------------------------------------------------------------- */
   const teaserTrack = $('#teaserTrack');
   if (teaserTrack) {
+    // 左右箭头:点击滚动一张卡片 + 边界禁用态
+    const teaserPrev = $('#teaserPrev');
+    const teaserNext = $('#teaserNext');
+    if (teaserPrev || teaserNext) {
+      const stepSize = () => {
+        const card = $('.card', teaserTrack);
+        return (card ? card.offsetWidth : 280) + 20; // 卡片宽 + gap
+      };
+      const updateNavState = () => {
+        const maxScroll = teaserTrack.scrollWidth - teaserTrack.clientWidth;
+        const x = teaserTrack.scrollLeft;
+        if (teaserPrev) teaserPrev.disabled = x <= 0;
+        if (teaserNext) teaserNext.disabled = x >= maxScroll - 1;
+      };
+      if (teaserPrev) {
+        teaserPrev.addEventListener('click', () => {
+          teaserTrack.scrollBy({ left: -stepSize(), behavior: prefersReduced ? 'auto' : 'smooth' });
+        });
+      }
+      if (teaserNext) {
+        teaserNext.addEventListener('click', () => {
+          teaserTrack.scrollBy({ left: stepSize(), behavior: prefersReduced ? 'auto' : 'smooth' });
+        });
+      }
+      teaserTrack.addEventListener('scroll', updateNavState, { passive: true });
+      window.addEventListener('resize', updateNavState);
+      updateNavState(); // 初始化边界态
+    }
+
     // 触摸设备(hover: none)原生支持滑动,跳过鼠标拖拽
     const canHover = window.matchMedia('(hover: hover)').matches;
     if (canHover) {
