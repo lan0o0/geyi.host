@@ -237,6 +237,59 @@
     window.addEventListener('mousemove', onMove, { passive: true });
   }
 
+  /* ---------- Teaser: drag-to-scroll (desktop mouse) ----------
+   * 首页产品矩阵已有横向滚动容器,触摸设备原生支持滑动;
+   * 这里为桌面端补上鼠标左键拖拽(左/右拖动卡片轨道),让所有产品可见可滑。
+   * ---------------------------------------------------------------- */
+  const teaserTrack = $('#teaserTrack');
+  if (teaserTrack) {
+    // 触摸设备(hover: none)原生支持滑动,跳过鼠标拖拽
+    const canHover = window.matchMedia('(hover: hover)').matches;
+    if (canHover) {
+      let isDown = false;
+      let startX = 0;
+      let startScroll = 0;
+      let moved = false;
+
+      teaserTrack.style.cursor = 'grab';
+
+      teaserTrack.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return; // 只响应鼠标左键
+        isDown = true;
+        moved = false;
+        startX = e.pageX - teaserTrack.offsetLeft;
+        startScroll = teaserTrack.scrollLeft;
+        teaserTrack.classList.add('is-dragging');
+        e.preventDefault(); // 阻止文本/图片被选中
+      });
+
+      const endDrag = () => {
+        if (!isDown) return;
+        isDown = false;
+        teaserTrack.classList.remove('is-dragging');
+      };
+      window.addEventListener('mouseup', endDrag);
+
+      teaserTrack.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - teaserTrack.offsetLeft;
+        const walk = x - startX;
+        if (Math.abs(walk) > 4) moved = true;
+        teaserTrack.scrollLeft = startScroll - walk;
+      });
+
+      // 拖动产生的 click 应当吞掉,避免误点卡片
+      teaserTrack.addEventListener('click', (e) => {
+        if (moved) {
+          e.preventDefault();
+          e.stopPropagation();
+          moved = false;
+        }
+      }, true);
+    }
+  }
+
   /* ---------- Drawer (products page) ---------- */
   const drawer = $('#drawer');
   const statusBadgeClass = {

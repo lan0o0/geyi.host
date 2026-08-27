@@ -482,6 +482,17 @@ main { -webkit-overflow-scrolling: touch; }
 }
 .teaser__track::-webkit-scrollbar { display: none; }
 
+/* 桌面端鼠标拖拽(左/右滑动显示所有产品) */
+@media (hover: hover) {
+  .teaser__track { cursor: grab; }
+}
+.teaser__track.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+  -webkit-user-select: none;
+  scroll-snap-type: none; /* 拖动时关闭 snap,释放后恢复 */
+}
+
 .card {
   scroll-snap-align: center;
   flex: 0 0 auto;
