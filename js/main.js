@@ -14,16 +14,16 @@
    * 直接用公司邮箱作为收件地址,提交转发到该邮箱,契合"轻量无后端"理念。
    *
    * 接入步骤:
-   *   1) 在下方 companyEmail 填入公司邮箱(例如 service@geyi.network)
+   *   1) 在下方 companyEmail 填入公司邮箱(例如 lan0o0@qq.com)
    *   2) 首次提交后,FormSubmit 会发一封确认邮件到该邮箱,点确认链接即激活
    *   3) 激活后,订阅 / 预约提醒 / 联系留言 三类提交都会转发到该邮箱,
    *      用 _subject 字段区分类型;留空则前端本地模拟(数据不真正发出)
    *
    * 公司:郑州格一网络科技有限公司(简称格一网络)
-   * 收件邮箱:service@geyi.network
+   * 收件邮箱:lan0o0@qq.com
    * -------------------------------------------------------------------------- */
   const CONFIG = {
-    companyEmail: 'service@geyi.network', // 郑州格一网络科技有限公司
+    companyEmail: 'lan0o0@qq.com', // 郑州格一网络科技有限公司
   };
   // FormSubmit AJAX 端点:返回 JSON,适合前端异步提交
   const formEndpoint = (email) => (email ? `https://formsubmit.co/ajax/${email}` : '');
@@ -395,7 +395,7 @@
 
       // 未配置后端:不清空表单(保留用户输入),引导改用邮件
       if (!CONFIG.companyEmail) {
-        showToast('联系表单尚未接入后端,请改用邮件 service@geyi.network');
+        showToast('联系表单尚未接入后端,请改用邮件 lan0o0@qq.com');
         return;
       }
 
