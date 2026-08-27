@@ -1,5 +1,5 @@
 /* ============================================================
- * Nullspace Studio · Main interaction layer
+ * 格一网络 · Main interaction layer
  * Vanilla ES6+, no dependencies. Mobile-first progressive.
  * ============================================================ */
 (function () {
@@ -8,6 +8,62 @@
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- 配置区:FormSubmit 表单服务 ----------
+   * FormSubmit (https://formsubmit.co) —— 无需注册、无需后端,
+   * 直接用公司邮箱作为收件地址,提交转发到该邮箱,契合"轻量无后端"理念。
+   *
+   * 接入步骤:
+   *   1) 在下方 companyEmail 填入公司邮箱(例如 lan0o0@qq.com)
+   *   2) 首次提交后,FormSubmit 会发一封确认邮件到该邮箱,点确认链接即激活
+   *   3) 激活后,订阅 / 预约提醒 / 联系留言 三类提交都会转发到该邮箱,
+   *      用 _subject 字段区分类型;留空则前端本地模拟(数据不真正发出)
+   *
+   * 公司:郑州格一网络科技有限公司(简称格一网络)
+   * 收件邮箱:lan0o0@qq.com
+   * -------------------------------------------------------------------------- */
+  const CONFIG = {
+    companyEmail: 'lan0o0@qq.com', // 郑州格一网络科技有限公司
+  };
+  // FormSubmit AJAX 端点:返回 JSON,适合前端异步提交
+  const formEndpoint = (email) => (email ? `https://formsubmit.co/ajax/${email}` : '');
+
+  // 通用提交:JSON POST + Accept JSON,兼容 FormSubmit AJAX 协议
+  // FormSubmit 字段:
+  //   _subject  邮件主题(区分表单类型)
+  //   _template 邮件模板(table / frilio / box)
+  //   _captcha  关闭 reCAPTCHA(已用前端校验代替)
+  async function postToService(endpoint, payload) {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _template: 'table',
+        _captcha: 'false',
+        ...payload,
+      }),
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json().catch(() => ({}));
+    // FormSubmit AJAX 成功时返回 { success: "true", message: "..." }
+    // 首次提交未激活时返回 { success: "false", message: "..." }
+    if (data && data.success === 'false') {
+      throw new Error(data.message || 'FormSubmit 未激活');
+    }
+    return data;
+  }
+  // 提交按钮 loading 态
+  function setBusy(btn, busy, busyText) {
+    if (!btn) return;
+    if (busy) {
+      btn.dataset.label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = busyText;
+    } else {
+      btn.disabled = false;
+      if (btn.dataset.label) btn.textContent = btn.dataset.label;
+    }
+  }
 
   /* ---------- Toast ---------- */
   let toastEl = null;
@@ -122,7 +178,7 @@
   /* ---------- Subscribe form (home) ---------- */
   const subscribeForm = $('#subscribeForm');
   if (subscribeForm) {
-    subscribeForm.addEventListener('submit', (e) => {
+    subscribeForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const emailInput = $('#email', subscribeForm);
       const value = (emailInput.value || '').trim();
@@ -132,14 +188,34 @@
         showToast('请输入有效的邮箱地址');
         return;
       }
-      // Persist locally (front-end only, no backend)
+      const btn = $('.subscribe__submit', subscribeForm);
+
+      // 未配置后端:本地模拟(数据不真正发出,仅存浏览器)
+      if (!CONFIG.companyEmail) {
+        try {
+          const list = JSON.parse(localStorage.getItem('geyi_subscribers') || '[]');
+          if (!list.includes(value)) list.push(value);
+          localStorage.setItem('geyi_subscribers', JSON.stringify(list));
+        } catch (_) {}
+        subscribeForm.reset();
+        showToast('已加入订阅列表(本地模拟·需配置 endpoint 后才能真正发送)');
+        return;
+      }
+
+      // 已配置:真正提交到第三方服务
+      setBusy(btn, true, '提交中…');
       try {
-        const list = JSON.parse(localStorage.getItem('ns_subscribers') || '[]');
-        if (!list.includes(value)) list.push(value);
-        localStorage.setItem('ns_subscribers', JSON.stringify(list));
-      } catch (_) {}
-      subscribeForm.reset();
-      showToast('已加入订阅列表,产品上架第一时间通知你');
+        await postToService(formEndpoint(CONFIG.companyEmail), {
+          email: value,
+          _subject: '订阅动态 - 格一网络',
+        });
+        subscribeForm.reset();
+        showToast('已加入订阅列表,产品上架第一时间通知你');
+      } catch (err) {
+        showToast('提交失败,请稍后重试');
+      } finally {
+        setBusy(btn, false);
+      }
     });
   }
 
@@ -232,17 +308,46 @@
     });
 
     if (notifyForm) {
-      notifyForm.addEventListener('submit', (e) => {
+      notifyForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const email = $('input[name="email"]', notifyForm);
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email.value || '').trim())) {
-          email.focus();
+        const emailEl = $('input[name="email"]', notifyForm);
+        const value = (emailEl.value || '').trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          emailEl.focus();
           showToast('请输入有效的邮箱地址');
           return;
         }
-        notifyForm.reset();
-        showToast('已记录,我们将提醒你关注这款产品');
-        setTimeout(closeDrawer, 600);
+        const productTitle = (elTitle && elTitle.textContent) || '未知产品';
+        const btn = $('.drawer__notify', notifyForm);
+
+        // 未配置后端:本地模拟
+        if (!CONFIG.companyEmail) {
+          try {
+            const list = JSON.parse(localStorage.getItem('geyi_subscribers') || '[]');
+            if (!list.includes(value)) list.push(value);
+            localStorage.setItem('geyi_subscribers', JSON.stringify(list));
+          } catch (_) {}
+          notifyForm.reset();
+          showToast('已记录(本地模拟·需配置 endpoint 后才能真正发送)');
+          setTimeout(closeDrawer, 600);
+          return;
+        }
+
+        setBusy(btn, true, '提交中…');
+        try {
+          await postToService(formEndpoint(CONFIG.companyEmail), {
+            email: value,
+            _subject: '产品预约提醒 - 格一网络',
+            product: productTitle,
+          });
+          notifyForm.reset();
+          showToast('已记录,我们将提醒你关注 ' + productTitle);
+          setTimeout(closeDrawer, 600);
+        } catch (err) {
+          showToast('提交失败,请稍后重试');
+        } finally {
+          setBusy(btn, false);
+        }
       });
     }
   }
@@ -267,7 +372,7 @@
   /* ---------- Contact form ---------- */
   const contactForm = $('#contactForm');
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = $('[name="name"]', contactForm);
       const email = $('[name="email"]', contactForm);
@@ -280,8 +385,30 @@
         showToast('请补全所有必填项');
         return;
       }
-      contactForm.reset();
-      showToast('已收到你的留言,我们会尽快回复');
+      const btn = $('.form__submit', contactForm);
+      const payload = {
+        name: name.value.trim(),
+        email: email.value.trim(),
+        message: message.value.trim(),
+        _subject: '官网联系留言 - 格一网络',
+      };
+
+      // 未配置后端:不清空表单(保留用户输入),引导改用邮件
+      if (!CONFIG.companyEmail) {
+        showToast('联系表单尚未接入后端,请改用邮件 lan0o0@qq.com');
+        return;
+      }
+
+      setBusy(btn, true, '发送中…');
+      try {
+        await postToService(formEndpoint(CONFIG.companyEmail), payload);
+        contactForm.reset();
+        showToast('已收到你的留言,我们会尽快回复');
+      } catch (err) {
+        showToast('发送失败,请稍后重试或直接邮件联系');
+      } finally {
+        setBusy(btn, false);
+      }
     });
   }
 

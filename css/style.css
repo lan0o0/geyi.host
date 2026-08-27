@@ -1,5 +1,5 @@
 /* ============================================================
-   Nullspace Studio · Global Stylesheet
+   格一网络 · Global Stylesheet
    Apple-style minimalist dark design language
    BEM naming · Mobile-first · WCAG-aware
    ============================================================ */
@@ -1147,7 +1147,7 @@ main { -webkit-overflow-scrolling: touch; }
 }
 .principles__list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   background: var(--c-border);
   border: 1px solid var(--c-border);
@@ -1363,6 +1363,8 @@ main { -webkit-overflow-scrolling: touch; }
 
   .grid { padding: 0 16px; }
   .form { padding: 24px 20px; }
+
+  .principles__list { grid-template-columns: 1fr; }
 
   .drawer__panel { padding: 12px 20px 28px; border-radius: var(--r-xl) var(--r-xl) 0 0; }
 }
