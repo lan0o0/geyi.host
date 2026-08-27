@@ -11,22 +11,21 @@
 
   /* ---------- 配置区:FormSubmit 表单服务 ----------
    * FormSubmit (https://formsubmit.co) —— 无需注册、无需后端,
-   * 直接用公司邮箱作为收件地址,提交转发到该邮箱,契合"轻量无后端"理念。
+   * 提交转发到公司邮箱,契合"轻量无后端"理念。
    *
-   * 接入步骤:
-   *   1) 在下方 companyEmail 填入公司邮箱(例如 lan0o0@qq.com)
-   *   2) 首次提交后,FormSubmit 会发一封确认邮件到该邮箱,点确认链接即激活
-   *   3) 激活后,订阅 / 预约提醒 / 联系留言 三类提交都会转发到该邮箱,
-   *      用 _subject 字段区分类型;留空则前端本地模拟(数据不真正发出)
+   * 已激活:首次提交后 FormSubmit 发了确认邮件,点击 Activate Form 链接完成激活。
+   * 激活后 FormSubmit 分配一个随机 token,用它替代裸邮箱作为提交目标,
+   * 既隐藏邮箱(防爬虫/防垃圾邮件),又保持转发到原邮箱。
    *
    * 公司:郑州格一网络科技有限公司(简称格一网络)
-   * 收件邮箱:lan0o0@qq.com
+   * 收件邮箱:lan0o0@qq.com  (已通过 FormSubmit 激活)
    * -------------------------------------------------------------------------- */
   const CONFIG = {
-    companyEmail: 'lan0o0@qq.com', // 郑州格一网络科技有限公司
+    // FormSubmit 激活后分配的 token,绑定到 lan0o0@qq.com
+    formToken: 'd6f16c692d30121f7f31ab1a120d1a12',
   };
   // FormSubmit AJAX 端点:返回 JSON,适合前端异步提交
-  const formEndpoint = (email) => (email ? `https://formsubmit.co/ajax/${email}` : '');
+  const formEndpoint = (token) => (token ? `https://formsubmit.co/ajax/${token}` : '');
 
   // 通用提交:JSON POST + Accept JSON,兼容 FormSubmit AJAX 协议
   // FormSubmit 字段:
@@ -191,7 +190,7 @@
       const btn = $('.subscribe__submit', subscribeForm);
 
       // 未配置后端:本地模拟(数据不真正发出,仅存浏览器)
-      if (!CONFIG.companyEmail) {
+      if (!CONFIG.formToken) {
         try {
           const list = JSON.parse(localStorage.getItem('geyi_subscribers') || '[]');
           if (!list.includes(value)) list.push(value);
@@ -205,7 +204,7 @@
       // 已配置:真正提交到第三方服务
       setBusy(btn, true, '提交中…');
       try {
-        await postToService(formEndpoint(CONFIG.companyEmail), {
+        await postToService(formEndpoint(CONFIG.formToken), {
           email: value,
           _subject: '订阅动态 - 格一网络',
         });
@@ -321,7 +320,7 @@
         const btn = $('.drawer__notify', notifyForm);
 
         // 未配置后端:本地模拟
-        if (!CONFIG.companyEmail) {
+        if (!CONFIG.formToken) {
           try {
             const list = JSON.parse(localStorage.getItem('geyi_subscribers') || '[]');
             if (!list.includes(value)) list.push(value);
@@ -335,7 +334,7 @@
 
         setBusy(btn, true, '提交中…');
         try {
-          await postToService(formEndpoint(CONFIG.companyEmail), {
+          await postToService(formEndpoint(CONFIG.formToken), {
             email: value,
             _subject: '产品预约提醒 - 格一网络',
             product: productTitle,
@@ -394,14 +393,14 @@
       };
 
       // 未配置后端:不清空表单(保留用户输入),引导改用邮件
-      if (!CONFIG.companyEmail) {
+      if (!CONFIG.formToken) {
         showToast('联系表单尚未接入后端,请改用邮件 lan0o0@qq.com');
         return;
       }
 
       setBusy(btn, true, '发送中…');
       try {
-        await postToService(formEndpoint(CONFIG.companyEmail), payload);
+        await postToService(formEndpoint(CONFIG.formToken), payload);
         contactForm.reset();
         showToast('已收到你的留言,我们会尽快回复');
       } catch (err) {
