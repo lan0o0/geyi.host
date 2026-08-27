@@ -1,5 +1,5 @@
 /* ============================================================
- * Nullspace Studio · Main interaction layer
+ * 格一网络 · Main interaction layer
  * Vanilla ES6+, no dependencies. Mobile-first progressive.
  * ============================================================ */
 (function () {
@@ -9,30 +9,48 @@
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- 配置区:第三方表单服务 endpoint ----------
-   * 推荐使用 Formspree (https://formspree.io) —— 免注册后端、免费额度够用,
-   * 提交直接转发到你的邮箱 / 写入邮件列表,完全契合"轻量无后端"理念。
+  /* ---------- 配置区:FormSubmit 表单服务 ----------
+   * FormSubmit (https://formsubmit.co) —— 无需注册、无需后端,
+   * 直接用公司邮箱作为收件地址,提交转发到该邮箱,契合"轻量无后端"理念。
    *
    * 接入步骤:
-   *   1) 在 https://formspree.io 新建两个表单(一个用于"订阅动态",一个用于"联系我们"),
-   *      各自复制其 POST endpoint,形如 https://formspree.io/f/abcdwxyz
-   *   2) 将下方两个常量填入对应 endpoint
-   *   3) 保存刷新即生效,提交将真正发送;留空则为本地模拟(数据不会真正发出)
+   *   1) 在下方 companyEmail 填入公司邮箱(例如 service@geyi.network)
+   *   2) 首次提交后,FormSubmit 会发一封确认邮件到该邮箱,点确认链接即激活
+   *   3) 激活后,订阅 / 预约提醒 / 联系留言 三类提交都会转发到该邮箱,
+   *      用 _subject 字段区分类型;留空则前端本地模拟(数据不真正发出)
+   *
+   * 公司:郑州格一网络科技有限公司(简称格一网络)
+   * 收件邮箱:service@geyi.network
    * -------------------------------------------------------------------------- */
   const CONFIG = {
-    subscribeEndpoint: '', // 订阅动态 + 抽屉预约提醒 共用此 endpoint
-    contactEndpoint: '',   // 联系我们表单 endpoint
+    companyEmail: 'service@geyi.network', // 郑州格一网络科技有限公司
   };
+  // FormSubmit AJAX 端点:返回 JSON,适合前端异步提交
+  const formEndpoint = (email) => (email ? `https://formsubmit.co/ajax/${email}` : '');
 
-  // 通用提交:JSON POST + Accept JSON,兼容 Formspree 协议
+  // 通用提交:JSON POST + Accept JSON,兼容 FormSubmit AJAX 协议
+  // FormSubmit 字段:
+  //   _subject  邮件主题(区分表单类型)
+  //   _template 邮件模板(table / frilio / box)
+  //   _captcha  关闭 reCAPTCHA(已用前端校验代替)
   async function postToService(endpoint, payload) {
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        _template: 'table',
+        _captcha: 'false',
+        ...payload,
+      }),
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    return res.json().catch(() => ({}));
+    const data = await res.json().catch(() => ({}));
+    // FormSubmit AJAX 成功时返回 { success: "true", message: "..." }
+    // 首次提交未激活时返回 { success: "false", message: "..." }
+    if (data && data.success === 'false') {
+      throw new Error(data.message || 'FormSubmit 未激活');
+    }
+    return data;
   }
   // 提交按钮 loading 态
   function setBusy(btn, busy, busyText) {
@@ -173,11 +191,11 @@
       const btn = $('.subscribe__submit', subscribeForm);
 
       // 未配置后端:本地模拟(数据不真正发出,仅存浏览器)
-      if (!CONFIG.subscribeEndpoint) {
+      if (!CONFIG.companyEmail) {
         try {
-          const list = JSON.parse(localStorage.getItem('ns_subscribers') || '[]');
+          const list = JSON.parse(localStorage.getItem('geyi_subscribers') || '[]');
           if (!list.includes(value)) list.push(value);
-          localStorage.setItem('ns_subscribers', JSON.stringify(list));
+          localStorage.setItem('geyi_subscribers', JSON.stringify(list));
         } catch (_) {}
         subscribeForm.reset();
         showToast('已加入订阅列表(本地模拟·需配置 endpoint 后才能真正发送)');
@@ -187,9 +205,9 @@
       // 已配置:真正提交到第三方服务
       setBusy(btn, true, '提交中…');
       try {
-        await postToService(CONFIG.subscribeEndpoint, {
+        await postToService(formEndpoint(CONFIG.companyEmail), {
           email: value,
-          _subject: '订阅动态 - Nullspace Studio',
+          _subject: '订阅动态 - 格一网络',
         });
         subscribeForm.reset();
         showToast('已加入订阅列表,产品上架第一时间通知你');
@@ -303,11 +321,11 @@
         const btn = $('.drawer__notify', notifyForm);
 
         // 未配置后端:本地模拟
-        if (!CONFIG.subscribeEndpoint) {
+        if (!CONFIG.companyEmail) {
           try {
-            const list = JSON.parse(localStorage.getItem('ns_subscribers') || '[]');
+            const list = JSON.parse(localStorage.getItem('geyi_subscribers') || '[]');
             if (!list.includes(value)) list.push(value);
-            localStorage.setItem('ns_subscribers', JSON.stringify(list));
+            localStorage.setItem('geyi_subscribers', JSON.stringify(list));
           } catch (_) {}
           notifyForm.reset();
           showToast('已记录(本地模拟·需配置 endpoint 后才能真正发送)');
@@ -317,9 +335,9 @@
 
         setBusy(btn, true, '提交中…');
         try {
-          await postToService(CONFIG.subscribeEndpoint, {
+          await postToService(formEndpoint(CONFIG.companyEmail), {
             email: value,
-            _subject: '产品预约提醒 - Nullspace Studio',
+            _subject: '产品预约提醒 - 格一网络',
             product: productTitle,
           });
           notifyForm.reset();
@@ -372,18 +390,18 @@
         name: name.value.trim(),
         email: email.value.trim(),
         message: message.value.trim(),
-        _subject: '官网联系留言 - Nullspace Studio',
+        _subject: '官网联系留言 - 格一网络',
       };
 
       // 未配置后端:不清空表单(保留用户输入),引导改用邮件
-      if (!CONFIG.contactEndpoint) {
-        showToast('联系表单尚未接入后端,请改用邮件 hello@nullspace.studio');
+      if (!CONFIG.companyEmail) {
+        showToast('联系表单尚未接入后端,请改用邮件 service@geyi.network');
         return;
       }
 
       setBusy(btn, true, '发送中…');
       try {
-        await postToService(CONFIG.contactEndpoint, payload);
+        await postToService(formEndpoint(CONFIG.companyEmail), payload);
         contactForm.reset();
         showToast('已收到你的留言,我们会尽快回复');
       } catch (err) {
