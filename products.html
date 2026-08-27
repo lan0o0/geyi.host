@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+
+  <title>产品矩阵 · Nullspace Studio</title>
+  <meta name="description" content="Nullspace Studio 五款待上架 App 集中展示:成长积分卡、程序员计算器、BLE Linker、伪随机数生成器、人格测试。点击卡片查看详情并预约上架提醒。" />
+  <meta name="keywords" content="App产品矩阵,iOS应用,BLE Linker,程序员计算器,人格测试,成长积分卡,伪随机数生成器" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="产品矩阵 · Nullspace Studio" />
+  <meta property="og:description" content="五款待上架 App,蓄势待发。点击卡片查看详情并预约上架提醒。" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Cpath d='M9 22 L16 9 L23 22' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳转到主要内容</a>
+
+  <!-- ===================== Navigation ===================== -->
+  <header class="nav" id="nav" data-state="scrolled">
+    <div class="nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Nullspace Studio 首页">
+        <svg class="nav__logo-mark" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M9 22 L16 9 L23 22" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav__logo-text">Nullspace</span>
+      </a>
+      <nav class="nav__links" aria-label="主导航">
+        <a class="nav__link" href="index.html">首页</a>
+        <a class="nav__link" href="products.html">产品矩阵</a>
+        <a class="nav__link" href="about.html">技术理念</a>
+        <a class="nav__link" href="about.html#team">关于我们</a>
+        <a class="nav__link" href="contact.html">联系我们</a>
+      </nav>
+      <a class="nav__cta btn btn--ghost" href="index.html#subscribe">订阅动态</a>
+      <button class="nav__burger" id="navBurger" aria-label="打开菜单" aria-expanded="false" aria-controls="navMobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <a class="nav__mobile-link" href="index.html">首页</a>
+      <a class="nav__mobile-link" href="products.html">产品矩阵</a>
+      <a class="nav__mobile-link" href="about.html">技术理念</a>
+      <a class="nav__mobile-link" href="about.html#team">关于我们</a>
+      <a class="nav__mobile-link" href="contact.html">联系我们</a>
+      <a class="btn btn--solid nav__mobile-cta" href="index.html#subscribe">订阅动态</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== Page Hero ===================== -->
+    <section class="page-hero">
+      <p class="page-hero__eyebrow" data-reveal>PRODUCT MATRIX</p>
+      <h1 class="page-hero__title" data-reveal data-reveal-delay="1">五款应用,各司其职</h1>
+      <p class="page-hero__desc" data-reveal data-reveal-delay="2">
+        从成长记录到智能硬件连接,从开发者工具到自我探索。<br class="hide-sm" />
+        点击任意卡片查看详情,并预约上架通知。
+      </p>
+    </section>
+
+    <!-- ===================== Filter ===================== -->
+    <div class="filter" data-reveal role="tablist" aria-label="产品状态筛选">
+      <button class="filter__btn is-active" data-filter="all" role="tab" aria-selected="true">全部</button>
+      <button class="filter__btn" data-filter="soon" role="tab" aria-selected="false">待上架</button>
+      <button class="filter__btn" data-filter="dev" role="tab" aria-selected="false">开发中</button>
+    </div>
+
+    <!-- ===================== Grid ===================== -->
+    <section class="grid" aria-label="产品列表">
+      <button class="product" data-category="soon"
+        data-title="成长积分卡" data-tagline="让每一次成长,都有回响"
+        data-gradient="a" data-num="01" data-screen-label="积分"
+        data-status-text="App Store 审核中"
+        data-features="按维度记录孩子的成长里程碑::家长协同的积分激励,让坚持可见::年度成长报告自动生成">
+        <div class="product__device-wrap">
+          <div class="card__device product__device">
+            <div class="card__notch"></div>
+            <div class="card__screen card__screen--gradient-a">
+              <span class="card__screen-num">01</span>
+              <span class="card__screen-label">积分</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="product__title">成长积分卡</h3>
+          <p class="product__tagline">让每一次成长,都有回响</p>
+        </div>
+        <div class="product__features">
+          <span class="product__feature">按维度记录孩子的成长里程碑</span>
+          <span class="product__feature">家长协同的积分激励机制</span>
+          <span class="product__feature">年度成长报告自动生成</span>
+        </div>
+        <div class="product__footer">
+          <span class="badge badge--review">App Store 审核中</span>
+          <span class="product__arrow" aria-hidden="true">→</span>
+        </div>
+      </button>
+
+      <button class="product" data-category="soon"
+        data-title="程序员计算器" data-tagline="进制转换,信手拈来"
+        data-gradient="b" data-num="0x" data-screen-label="HEX"
+        data-status-text="即将上线"
+        data-features="BIN / OCT / DEC / HEX 实时互转::位运算可视化与表达式求值::全键盘快捷键,操作如飞">
+        <div class="product__device-wrap">
+          <div class="card__device product__device">
+            <div class="card__notch"></div>
+            <div class="card__screen card__screen--gradient-b">
+              <span class="card__screen-num">0x</span>
+              <span class="card__screen-label">HEX</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="product__title">程序员计算器</h3>
+          <p class="product__tagline">进制转换,信手拈来</p>
+        </div>
+        <div class="product__features">
+          <span class="product__feature">四种进制实时互转</span>
+          <span class="product__feature">位运算可视化与表达式求值</span>
+          <span class="product__feature">全键盘快捷键操作</span>
+        </div>
+        <div class="product__footer">
+          <span class="badge badge--soon">即将上线</span>
+          <span class="product__arrow" aria-hidden="true">→</span>
+        </div>
+      </button>
+
+      <button class="product" data-category="dev"
+        data-title="BLE Linker" data-tagline="无缝连接你的智能设备"
+        data-gradient="c" data-num="BLE" data-screen-label="Linker"
+        data-status-text="开发中"
+        data-features="蓝牙设备扫描、连接、读写一站式::支持自定义 Service 与 Characteristic::实时数据曲线,一键导出 CSV">
+        <div class="product__device-wrap">
+          <div class="card__device product__device">
+            <div class="card__notch"></div>
+            <div class="card__screen card__screen--gradient-c">
+              <span class="card__screen-num">BLE</span>
+              <span class="card__screen-label">Linker</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="product__title">BLE Linker</h3>
+          <p class="product__tagline">无缝连接你的智能设备</p>
+        </div>
+        <div class="product__features">
+          <span class="product__feature">蓝牙扫描、连接、读写一站式</span>
+          <span class="product__feature">自定义 Service / Characteristic</span>
+          <span class="product__feature">实时数据曲线与 CSV 导出</span>
+        </div>
+        <div class="product__footer">
+          <span class="badge badge--dev">开发中</span>
+          <span class="product__arrow" aria-hidden="true">→</span>
+        </div>
+      </button>
+
+      <button class="product" data-category="soon"
+        data-title="伪随机数生成器" data-tagline="可复现的随机,可信赖的精度"
+        data-gradient="d" data-num="RNG" data-screen-label="seed"
+        data-status-text="即将上线"
+        data-features="支持 Mersenne Twister / LCG 等多种算法::可设种子复现结果::批量生成与统计分析">
+        <div class="product__device-wrap">
+          <div class="card__device product__device">
+            <div class="card__notch"></div>
+            <div class="card__screen card__screen--gradient-d">
+              <span class="card__screen-num">RNG</span>
+              <span class="card__screen-label">seed</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="product__title">伪随机数生成器</h3>
+          <p class="product__tagline">可复现的随机,可信赖的精度</p>
+        </div>
+        <div class="product__features">
+          <span class="product__feature">支持多种主流伪随机算法</span>
+          <span class="product__feature">可设种子复现结果</span>
+          <span class="product__feature">批量生成与统计分析</span>
+        </div>
+        <div class="product__footer">
+          <span class="badge badge--soon">即将上线</span>
+          <span class="product__arrow" aria-hidden="true">→</span>
+        </div>
+      </button>
+
+      <button class="product" data-category="dev"
+        data-title="人格测试" data-tagline="认识自己,从一次对话开始"
+        data-gradient="e" data-num="16" data-screen-label="人格"
+        data-status-text="开发中"
+        data-features="基于 16 型人格的精致测试流程::生成可分享的人格卡片::隐私优先,数据本地存储">
+        <div class="product__device-wrap">
+          <div class="card__device product__device">
+            <div class="card__notch"></div>
+            <div class="card__screen card__screen--gradient-e">
+              <span class="card__screen-num">16</span>
+              <span class="card__screen-label">人格</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="product__title">人格测试</h3>
+          <p class="product__tagline">认识自己,从一次对话开始</p>
+        </div>
+        <div class="product__features">
+          <span class="product__feature">16 型人格精致测试流程</span>
+          <span class="product__feature">生成可分享的人格卡片</span>
+          <span class="product__feature">隐私优先,数据本地存储</span>
+        </div>
+        <div class="product__footer">
+          <span class="badge badge--dev">开发中</span>
+          <span class="product__arrow" aria-hidden="true">→</span>
+        </div>
+      </button>
+    </section>
+
+    <!-- ===================== Bottom subscribe CTA ===================== -->
+    <section class="subscribe" aria-labelledby="cta-title">
+      <div class="subscribe__glow" aria-hidden="true"></div>
+      <div class="subscribe__inner">
+        <p class="subscribe__eyebrow">STAY IN THE LOOP</p>
+        <h2 class="subscribe__title" id="cta-title">第一时间,收到上架通知</h2>
+        <p class="subscribe__desc">没有找到心仪的那款?留下邮箱,所有应用上架时统一通知你。</p>
+        <form class="subscribe__form" id="subscribeForm" novalidate>
+          <div class="field">
+            <input class="field__input" id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder=" " required aria-describedby="emailHint" />
+            <label class="field__label" for="email">邮箱地址</label>
+          </div>
+          <button class="btn btn--solid subscribe__submit" type="submit">订阅</button>
+        </form>
+        <p class="subscribe__hint" id="emailHint">我们尊重你的隐私,邮箱仅用于产品上线通知。</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== Drawer ===================== -->
+  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+    <div class="drawer__overlay" data-close></div>
+    <div class="drawer__panel" role="document">
+      <div class="drawer__handle" aria-hidden="true"></div>
+      <button class="drawer__close" data-close aria-label="关闭详情">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M3 3 L13 13 M13 3 L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <div class="card__device drawer__device" data-drawer-device>
+        <div class="card__notch"></div>
+        <div class="card__screen card__screen--gradient-a" data-drawer-screen>
+          <span class="card__screen-num" data-drawer-num>01</span>
+          <span class="card__screen-label" data-drawer-label>积分</span>
+        </div>
+      </div>
+
+      <h2 class="drawer__title" id="drawerTitle" data-drawer-title>产品名称</h2>
+      <p class="drawer__tagline" data-drawer-tagline>核心卖点</p>
+
+      <div class="drawer__status" data-drawer-status>
+        <span class="badge badge--soon">Coming Soon</span>
+      </div>
+
+      <div class="drawer__features">
+        <p class="drawer__features-title">核心功能</p>
+        <div data-drawer-features></div>
+      </div>
+
+      <form class="drawer__form" id="notifyForm" novalidate>
+        <div class="field">
+          <input class="field__input" name="email" type="email" inputmode="email" autocomplete="email" placeholder=" " required aria-label="邮箱地址" />
+          <label class="field__label" for="notify-email">邮箱地址</label>
+        </div>
+        <button class="btn btn--solid drawer__notify" type="submit">预约上架提醒</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <div class="footer__left">
+        <span class="footer__brand">Nullspace Studio</span>
+        <span class="footer__copy">© 2026 Nullspace Studio. 保留所有权利。</span>
+      </div>
+      <nav class="footer__right" aria-label="法务链接">
+        <a class="footer__link" href="#">隐私政策</a>
+        <a class="footer__link" href="#">用户协议</a>
+        <a class="footer__link" href="contact.html">商务合作</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
