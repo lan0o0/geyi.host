@@ -9,6 +9,44 @@
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- 配置区:第三方表单服务 endpoint ----------
+   * 推荐使用 Formspree (https://formspree.io) —— 免注册后端、免费额度够用,
+   * 提交直接转发到你的邮箱 / 写入邮件列表,完全契合"轻量无后端"理念。
+   *
+   * 接入步骤:
+   *   1) 在 https://formspree.io 新建两个表单(一个用于"订阅动态",一个用于"联系我们"),
+   *      各自复制其 POST endpoint,形如 https://formspree.io/f/abcdwxyz
+   *   2) 将下方两个常量填入对应 endpoint
+   *   3) 保存刷新即生效,提交将真正发送;留空则为本地模拟(数据不会真正发出)
+   * -------------------------------------------------------------------------- */
+  const CONFIG = {
+    subscribeEndpoint: '', // 订阅动态 + 抽屉预约提醒 共用此 endpoint
+    contactEndpoint: '',   // 联系我们表单 endpoint
+  };
+
+  // 通用提交:JSON POST + Accept JSON,兼容 Formspree 协议
+  async function postToService(endpoint, payload) {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json().catch(() => ({}));
+  }
+  // 提交按钮 loading 态
+  function setBusy(btn, busy, busyText) {
+    if (!btn) return;
+    if (busy) {
+      btn.dataset.label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = busyText;
+    } else {
+      btn.disabled = false;
+      if (btn.dataset.label) btn.textContent = btn.dataset.label;
+    }
+  }
+
   /* ---------- Toast ---------- */
   let toastEl = null;
   let toastTimer = null;
@@ -122,7 +160,7 @@
   /* ---------- Subscribe form (home) ---------- */
   const subscribeForm = $('#subscribeForm');
   if (subscribeForm) {
-    subscribeForm.addEventListener('submit', (e) => {
+    subscribeForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const emailInput = $('#email', subscribeForm);
       const value = (emailInput.value || '').trim();
@@ -132,14 +170,34 @@
         showToast('请输入有效的邮箱地址');
         return;
       }
-      // Persist locally (front-end only, no backend)
+      const btn = $('.subscribe__submit', subscribeForm);
+
+      // 未配置后端:本地模拟(数据不真正发出,仅存浏览器)
+      if (!CONFIG.subscribeEndpoint) {
+        try {
+          const list = JSON.parse(localStorage.getItem('ns_subscribers') || '[]');
+          if (!list.includes(value)) list.push(value);
+          localStorage.setItem('ns_subscribers', JSON.stringify(list));
+        } catch (_) {}
+        subscribeForm.reset();
+        showToast('已加入订阅列表(本地模拟·需配置 endpoint 后才能真正发送)');
+        return;
+      }
+
+      // 已配置:真正提交到第三方服务
+      setBusy(btn, true, '提交中…');
       try {
-        const list = JSON.parse(localStorage.getItem('ns_subscribers') || '[]');
-        if (!list.includes(value)) list.push(value);
-        localStorage.setItem('ns_subscribers', JSON.stringify(list));
-      } catch (_) {}
-      subscribeForm.reset();
-      showToast('已加入订阅列表,产品上架第一时间通知你');
+        await postToService(CONFIG.subscribeEndpoint, {
+          email: value,
+          _subject: '订阅动态 - Nullspace Studio',
+        });
+        subscribeForm.reset();
+        showToast('已加入订阅列表,产品上架第一时间通知你');
+      } catch (err) {
+        showToast('提交失败,请稍后重试');
+      } finally {
+        setBusy(btn, false);
+      }
     });
   }
 
@@ -232,17 +290,46 @@
     });
 
     if (notifyForm) {
-      notifyForm.addEventListener('submit', (e) => {
+      notifyForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const email = $('input[name="email"]', notifyForm);
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email.value || '').trim())) {
-          email.focus();
+        const emailEl = $('input[name="email"]', notifyForm);
+        const value = (emailEl.value || '').trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          emailEl.focus();
           showToast('请输入有效的邮箱地址');
           return;
         }
-        notifyForm.reset();
-        showToast('已记录,我们将提醒你关注这款产品');
-        setTimeout(closeDrawer, 600);
+        const productTitle = (elTitle && elTitle.textContent) || '未知产品';
+        const btn = $('.drawer__notify', notifyForm);
+
+        // 未配置后端:本地模拟
+        if (!CONFIG.subscribeEndpoint) {
+          try {
+            const list = JSON.parse(localStorage.getItem('ns_subscribers') || '[]');
+            if (!list.includes(value)) list.push(value);
+            localStorage.setItem('ns_subscribers', JSON.stringify(list));
+          } catch (_) {}
+          notifyForm.reset();
+          showToast('已记录(本地模拟·需配置 endpoint 后才能真正发送)');
+          setTimeout(closeDrawer, 600);
+          return;
+        }
+
+        setBusy(btn, true, '提交中…');
+        try {
+          await postToService(CONFIG.subscribeEndpoint, {
+            email: value,
+            _subject: '产品预约提醒 - Nullspace Studio',
+            product: productTitle,
+          });
+          notifyForm.reset();
+          showToast('已记录,我们将提醒你关注 ' + productTitle);
+          setTimeout(closeDrawer, 600);
+        } catch (err) {
+          showToast('提交失败,请稍后重试');
+        } finally {
+          setBusy(btn, false);
+        }
       });
     }
   }
@@ -267,7 +354,7 @@
   /* ---------- Contact form ---------- */
   const contactForm = $('#contactForm');
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = $('[name="name"]', contactForm);
       const email = $('[name="email"]', contactForm);
@@ -280,8 +367,30 @@
         showToast('请补全所有必填项');
         return;
       }
-      contactForm.reset();
-      showToast('已收到你的留言,我们会尽快回复');
+      const btn = $('.form__submit', contactForm);
+      const payload = {
+        name: name.value.trim(),
+        email: email.value.trim(),
+        message: message.value.trim(),
+        _subject: '官网联系留言 - Nullspace Studio',
+      };
+
+      // 未配置后端:不清空表单(保留用户输入),引导改用邮件
+      if (!CONFIG.contactEndpoint) {
+        showToast('联系表单尚未接入后端,请改用邮件 hello@nullspace.studio');
+        return;
+      }
+
+      setBusy(btn, true, '发送中…');
+      try {
+        await postToService(CONFIG.contactEndpoint, payload);
+        contactForm.reset();
+        showToast('已收到你的留言,我们会尽快回复');
+      } catch (err) {
+        showToast('发送失败,请稍后重试或直接邮件联系');
+      } finally {
+        setBusy(btn, false);
+      }
     });
   }
 
