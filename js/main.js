@@ -51,6 +51,22 @@
     }
     return data;
   }
+
+  // 把底层错误翻译成用户可理解的提示:
+  // FormSubmit 激活按域名绑定,换域名(如 github.io → geyi.host)需重新激活
+  function friendlyError(err) {
+    const msg = (err && err.message) || '';
+    if (/Activation|actived/i.test(msg)) {
+      return '表单需激活:请到 ' + CONFIG.contactEmail + ' 点击 FormSubmit 发来的激活链接(每个域名首次使用各需激活一次)';
+    }
+    if (/Failed to fetch|NetworkError|Load failed|timeout|Timeout/i.test(msg)) {
+      return '无法连接表单服务,请检查网络后重试';
+    }
+    if (/web server|HTML files/i.test(msg)) {
+      return '请通过 http(s) 网页访问提交,本地直接打开的 HTML 文件无法提交';
+    }
+    return '提交失败,请稍后重试';
+  }
   // 提交按钮 loading 态
   function setBusy(btn, busy, busyText) {
     if (!btn) return;
