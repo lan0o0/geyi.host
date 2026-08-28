@@ -23,6 +23,8 @@
   const CONFIG = {
     // FormSubmit 激活后分配的 token,绑定到 lan0o0@qq.com
     formToken: 'd6f16c692d30121f7f31ab1a120d1a12',
+    // 联系邮箱(用于错误提示引导,如"去邮箱点激活链接")
+    contactEmail: 'lan0o0@qq.com',
   };
   // FormSubmit AJAX 端点:返回 JSON,适合前端异步提交
   const formEndpoint = (token) => (token ? `https://formsubmit.co/ajax/${token}` : '');
@@ -227,7 +229,7 @@
         subscribeForm.reset();
         showToast('已加入订阅列表,产品上架第一时间通知你');
       } catch (err) {
-        showToast('提交失败,请稍后重试');
+        showToast(friendlyError(err));
       } finally {
         setBusy(btn, false);
       }
@@ -441,7 +443,7 @@
           showToast('已记录,我们将提醒你关注 ' + productTitle);
           setTimeout(closeDrawer, 600);
         } catch (err) {
-          showToast('提交失败,请稍后重试');
+          showToast(friendlyError(err));
         } finally {
           setBusy(btn, false);
         }
@@ -502,7 +504,7 @@
         contactForm.reset();
         showToast('已收到你的留言,我们会尽快回复');
       } catch (err) {
-        showToast('发送失败,请稍后重试或直接邮件联系');
+        showToast(friendlyError(err));
       } finally {
         setBusy(btn, false);
       }
