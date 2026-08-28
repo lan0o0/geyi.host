@@ -1,5 +1,5 @@
 /* ============================================================
- * 格一网络 · Main interaction layer
+ * 格一科技 · Main interaction layer
  * Vanilla ES6+, no dependencies. Mobile-first progressive.
  * ============================================================ */
 (function () {
@@ -17,7 +17,7 @@
    * 激活后 FormSubmit 分配一个随机 token,用它替代裸邮箱作为提交目标,
    * 既隐藏邮箱(防爬虫/防垃圾邮件),又保持转发到原邮箱。
    *
-   * 公司:郑州格一网络科技有限公司(简称格一网络)
+   * 公司:郑州格一网络科技有限公司(简称格一科技)
    * 收件邮箱:lan0o0@qq.com  (已通过 FormSubmit 激活)
    * -------------------------------------------------------------------------- */
   const CONFIG = {
@@ -206,7 +206,7 @@
       try {
         await postToService(formEndpoint(CONFIG.formToken), {
           email: value,
-          _subject: '订阅动态 - 格一网络',
+          _subject: '订阅动态 - 格一科技',
         });
         subscribeForm.reset();
         showToast('已加入订阅列表,产品上架第一时间通知你');
@@ -418,7 +418,7 @@
         try {
           await postToService(formEndpoint(CONFIG.formToken), {
             email: value,
-            _subject: '产品预约提醒 - 格一网络',
+            _subject: '产品预约提醒 - 格一科技',
             product: productTitle,
           });
           notifyForm.reset();
@@ -471,7 +471,7 @@
         name: name.value.trim(),
         email: email.value.trim(),
         message: message.value.trim(),
-        _subject: '官网联系留言 - 格一网络',
+        _subject: '官网联系留言 - 格一科技',
       };
 
       // 未配置后端:不清空表单(保留用户输入),引导改用邮件
