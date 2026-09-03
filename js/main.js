@@ -23,6 +23,8 @@
   const CONFIG = {
     // FormSubmit 激活后分配的 token,绑定到 lan0o0@qq.com
     formToken: 'd6f16c692d30121f7f31ab1a120d1a12',
+    // 联系邮箱(用于错误提示引导,如"去邮箱点激活链接")
+    contactEmail: 'lan0o0@qq.com',
   };
   // FormSubmit AJAX 端点:返回 JSON,适合前端异步提交
   const formEndpoint = (token) => (token ? `https://formsubmit.co/ajax/${token}` : '');
@@ -50,6 +52,22 @@
       throw new Error(data.message || 'FormSubmit 未激活');
     }
     return data;
+  }
+
+  // 把底层错误翻译成用户可理解的提示:
+  // FormSubmit 激活按域名绑定,换域名(如 github.io → geyi.host)需重新激活
+  function friendlyError(err) {
+    const msg = (err && err.message) || '';
+    if (/Activation|actived/i.test(msg)) {
+      return '表单需激活:请到 ' + CONFIG.contactEmail + ' 点击 FormSubmit 发来的激活链接(每个域名首次使用各需激活一次)';
+    }
+    if (/Failed to fetch|NetworkError|Load failed|timeout|Timeout/i.test(msg)) {
+      return '无法连接表单服务,请检查网络后重试';
+    }
+    if (/web server|HTML files/i.test(msg)) {
+      return '请通过 http(s) 网页访问提交,本地直接打开的 HTML 文件无法提交';
+    }
+    return '提交失败,请稍后重试';
   }
   // 提交按钮 loading 态
   function setBusy(btn, busy, busyText) {
@@ -211,7 +229,7 @@
         subscribeForm.reset();
         showToast('已加入订阅列表,产品上架第一时间通知你');
       } catch (err) {
-        showToast('提交失败,请稍后重试');
+        showToast(friendlyError(err));
       } finally {
         setBusy(btn, false);
       }
@@ -425,7 +443,7 @@
           showToast('已记录,我们将提醒你关注 ' + productTitle);
           setTimeout(closeDrawer, 600);
         } catch (err) {
-          showToast('提交失败,请稍后重试');
+          showToast(friendlyError(err));
         } finally {
           setBusy(btn, false);
         }
@@ -486,7 +504,7 @@
         contactForm.reset();
         showToast('已收到你的留言,我们会尽快回复');
       } catch (err) {
-        showToast('发送失败,请稍后重试或直接邮件联系');
+        showToast(friendlyError(err));
       } finally {
         setBusy(btn, false);
       }
