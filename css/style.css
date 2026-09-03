@@ -861,6 +861,18 @@ main { -webkit-overflow-scrolling: touch; }
 }
 .footer__link:hover { color: var(--c-text); }
 
+/* 公安备案:官方编号图标 + 编号 */
+.footer__beian {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--c-text-dim);
+  transition: color var(--t-fast) var(--ease);
+}
+.footer__beian img { display: block; width: 20px; height: 20px; }
+.footer__beian:hover { color: var(--c-text); }
+
 /* ============================================================
    Reveal-on-scroll utility
    ============================================================ */
