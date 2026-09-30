@@ -343,7 +343,22 @@
     'App Store 审核中': 'badge--review',
     '即将上线': 'badge--soon',
     '开发中': 'badge--dev',
+    '内测中': 'badge--beta',
   };
+
+  /* ---------- 下载次数：向站内计数服务取（/download/count，失败只显示 —，不阻塞页面） ---------- */
+  async function loadDownloadCount(name, el) {
+    if (!name || !el) return;
+    try {
+      const res = await fetch('/download/count?name=' + encodeURIComponent(name), { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      el.textContent = typeof data.total === 'number' ? String(data.total) : '—';
+    } catch (_) {
+      el.textContent = '—';
+    }
+  }
+
   if (drawer) {
     const panel = $('.drawer__panel', drawer);
     const elDevice = $('[data-drawer-device]', drawer);
@@ -354,6 +369,12 @@
     const elTagline = $('[data-drawer-tagline]', drawer);
     const elStatus = $('[data-drawer-status]', drawer);
     const elFeatures = $('[data-drawer-features]', drawer);
+    const elShots = $('[data-drawer-shots]', drawer);
+    const elShotsRow = $('[data-drawer-shots-row]', drawer);
+    const elDownload = $('[data-drawer-download]', drawer);
+    const elDlLink = $('[data-drawer-dl-link]', drawer);
+    const elDlMeta = $('[data-drawer-dl-meta]', drawer);
+    const elDlCount = $('[data-drawer-dl-count]', drawer);
     const notifyForm = $('#notifyForm', drawer);
 
     const openDrawer = (card) => {
@@ -365,18 +386,64 @@
       const screenLabel = card.dataset.screenLabel;
       const statusText = card.dataset.statusText;
       const features = (card.dataset.features || '').split('::').filter(Boolean);
+      const cover = card.dataset.cover;
+      const shots = (card.dataset.shots || '').split('::').filter(Boolean);
+      const shotLabels = (card.dataset.shotLabels || '').split('::');
+      const download = card.dataset.download;
 
       if (elTitle) elTitle.textContent = title;
       if (elTagline) elTagline.textContent = tagline;
       if (elNum) elNum.textContent = num;
       if (elLabel) elLabel.textContent = screenLabel;
+      // 屏幕内容：有真机封面就放截图，否则回落到渐变占位（两种都要重建 innerHTML，
+      // 否则上一个产品留下的截图节点会一直被复用）
       if (elScreen) {
-        elScreen.className = 'card__screen card__screen--gradient-' + gradient;
+        if (cover) {
+          elScreen.className = 'card__screen card__screen--shot';
+          elScreen.innerHTML = `<img src="${cover}" alt="${title} 界面截图" />`;
+        } else {
+          elScreen.className = 'card__screen card__screen--gradient-' + gradient;
+          elScreen.innerHTML =
+            `<span class="card__screen-num">${num || ''}</span>` +
+            `<span class="card__screen-label">${screenLabel || ''}</span>`;
+        }
       }
       if (elStatus) {
         const cls = statusBadgeClass[statusText] || 'badge--soon';
         elStatus.innerHTML = `<span class="badge ${cls}">${statusText}</span>`;
       }
+      // 应用截图（两幅图）：仅当卡片提供了 data-shots 时展示
+      if (elShots && elShotsRow) {
+        if (shots.length) {
+          elShotsRow.innerHTML = shots
+            .map((src, i) => {
+              const label = shotLabels[i] ? `<figcaption>${shotLabels[i]}</figcaption>` : '';
+              return `<figure class="drawer__shot">
+                        <div class="drawer__shot-frame"><img src="${src}" alt="${title} 截图 ${i + 1}" loading="lazy" /></div>
+                        ${label}
+                      </figure>`;
+            })
+            .join('');
+          elShots.hidden = false;
+        } else {
+          elShotsRow.innerHTML = '';
+          elShots.hidden = true;
+        }
+      }
+      // 下载区：仅当卡片提供了 data-download 时展示，并取实时下载次数
+      if (elDownload) {
+        if (download) {
+          elDownload.hidden = false;
+          if (elDlLink) elDlLink.href = download;
+          if (elDlMeta) elDlMeta.textContent = card.dataset.downloadMeta || '';
+          if (elDlCount) elDlCount.textContent = '—';
+          loadDownloadCount(card.dataset.downloadName, elDlCount);
+        } else {
+          elDownload.hidden = true;
+        }
+      }
+      // 已是可下载的内测产品时，无需再"预约上架提醒"
+      if (notifyForm) notifyForm.hidden = !!download;
       if (elFeatures) {
         elFeatures.innerHTML = features
           .map((f) => `<div class="drawer__feature"><strong>·</strong> ${f}</div>`)
@@ -399,6 +466,13 @@
     $$('.product').forEach((card) => {
       card.addEventListener('click', () => openDrawer(card));
     });
+
+    // 深链：products.html#qianfan-yida 直接打开该产品详情（首页 teaser 卡片就指向这里）
+    const hashId = (location.hash || '').replace('#', '');
+    if (hashId) {
+      const target = $$('.product').find((c) => c.dataset.id === hashId);
+      if (target) setTimeout(() => openDrawer(target), 220);
+    }
 
     // Close handlers (data-close attribute on overlay + close btn)
     $$('[data-close]', drawer).forEach((el) => el.addEventListener('click', closeDrawer));

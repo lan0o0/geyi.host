@@ -6,12 +6,12 @@
   <meta name="theme-color" content="#000000" />
 
   <title>产品矩阵 · 格一科技</title>
-  <meta name="description" content="郑州格一网络科技有限公司五款待上架 App 集中展示:成长积分卡、程序员计算器、BLE Linker、伪随机数生成器、人格测试。点击卡片查看详情并预约上架提醒。" />
-  <meta name="keywords" content="App产品矩阵,iOS应用,BLE Linker,程序员计算器,人格测试,成长积分卡,伪随机数生成器" />
+  <meta name="description" content="郑州格一网络科技有限公司 App 产品矩阵:千帆一答（AI 面试实时助手,内测中可直接下载）、成长积分卡、程序员计算器、BLE Linker、伪随机数生成器、人格测试。点击卡片查看详情、应用截图与下载。" />
+  <meta name="keywords" content="App产品矩阵,千帆一答,AI面试助手,Android APK下载,iOS应用,BLE Linker,程序员计算器,人格测试,成长积分卡" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="产品矩阵 · 格一科技" />
-  <meta property="og:description" content="五款待上架 App,蓄势待发。点击卡片查看详情并预约上架提醒。" />
+  <meta property="og:description" content="六款 App,各司其职。其中《千帆一答》内测中,点击卡片查看截图与下载。" />
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Cpath d='M9 22 L16 9 L23 22' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="css/style.css" />
@@ -54,22 +54,57 @@
     <!-- ===================== Page Hero ===================== -->
     <section class="page-hero">
       <p class="page-hero__eyebrow" data-reveal>PRODUCT MATRIX</p>
-      <h1 class="page-hero__title" data-reveal data-reveal-delay="1">五款应用,各司其职</h1>
+      <h1 class="page-hero__title" data-reveal data-reveal-delay="1">六款应用,各司其职</h1>
       <p class="page-hero__desc" data-reveal data-reveal-delay="2">
-        从成长记录到智能硬件连接,从开发者工具到自我探索。<br class="hide-sm" />
-        点击任意卡片查看详情,并预约上架通知。
+        从 AI 面试助手到智能硬件连接,从开发者工具到自我探索。<br class="hide-sm" />
+        其中《千帆一答》已开启内测,点击卡片即可查看截图并下载安装包。
       </p>
     </section>
 
     <!-- ===================== Filter ===================== -->
     <div class="filter" data-reveal role="tablist" aria-label="产品状态筛选">
       <button class="filter__btn is-active" data-filter="all" role="tab" aria-selected="true">全部</button>
+      <button class="filter__btn" data-filter="beta" role="tab" aria-selected="false">内测中</button>
       <button class="filter__btn" data-filter="soon" role="tab" aria-selected="false">待上架</button>
       <button class="filter__btn" data-filter="dev" role="tab" aria-selected="false">开发中</button>
     </div>
 
     <!-- ===================== Grid ===================== -->
     <section class="grid" aria-label="产品列表">
+      <!-- 千帆一答（内测中，2026-09-29 上架官网内测版下载） -->
+      <button class="product" data-category="beta" data-id="qianfan-yida"
+        data-title="千帆一答" data-tagline="AI 面试实时助手 · 千帆问道,一答归真"
+        data-cover="/jpg/千帆一答.jpg"
+        data-shots="/jpg/千帆一答.jpg::/jpg/千帆一答-问答页面.jpg"
+        data-shot-labels="准备页 · 简历 / JD / 预设问答::面试问答中 · 实时生成答案"
+        data-download="/download/qianfan-yida-v1.0.53.apk"
+        data-download-name="qianfan-yida-v1.0.53.apk"
+        data-download-meta="v1.0.53 · 279 MB · Android"
+        data-status-text="内测中"
+        data-features="实时听懂面试官提问,秒级给出答题要点::简历 / 岗位 JD / 预设问答三件套,上台之前先备好::全屏历史问答 + 阿里云 Qwen ASR 流式语音识别">
+        <div class="product__device-wrap">
+          <div class="card__device product__device">
+            <div class="card__notch"></div>
+            <div class="card__screen card__screen--shot">
+              <img src="/jpg/千帆一答.jpg" alt="千帆一答 App 准备页截图" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="product__title">千帆一答</h3>
+          <p class="product__tagline">AI 面试实时助手 · 千帆问道,一答归真</p>
+        </div>
+        <div class="product__features">
+          <span class="product__feature">实时听懂提问,秒级给出答题要点</span>
+          <span class="product__feature">简历 / 岗位 JD / 预设问答准备</span>
+          <span class="product__feature">全屏历史问答 + 流式语音识别</span>
+        </div>
+        <div class="product__footer">
+          <span class="badge badge--beta">内测中</span>
+          <span class="product__arrow" aria-hidden="true">→</span>
+        </div>
+      </button>
+
       <button class="product" data-category="soon"
         data-title="成长积分卡" data-tagline="让每一次成长,都有回响"
         data-gradient="a" data-num="01" data-screen-label="积分"
@@ -261,9 +296,26 @@
         <span class="badge badge--soon">Coming Soon</span>
       </div>
 
+      <!-- 应用截图（仅内测中/已上架产品使用，两幅真机图） -->
+      <div class="drawer__shots" data-drawer-shots hidden>
+        <p class="drawer__features-title">应用截图</p>
+        <div class="drawer__shots-row" data-drawer-shots-row></div>
+      </div>
+
       <div class="drawer__features">
         <p class="drawer__features-title">核心功能</p>
         <div data-drawer-features></div>
+      </div>
+
+      <!-- 下载区（仅提供安装包的产品使用：下载按钮 + 版本信息 + 已下载次数） -->
+      <div class="drawer__download" data-drawer-download hidden>
+        <a class="btn btn--solid drawer__dl-btn" data-drawer-dl-link href="/download/qianfan-yida-v1.0.53.apk">下载 Android 内测版 APK</a>
+        <p class="drawer__dl-meta">
+          <strong data-drawer-dl-meta>v1.0.53 · 279 MB</strong>
+          <span aria-hidden="true">·</span>
+          已下载 <strong data-drawer-dl-count>—</strong> 次
+        </p>
+        <p class="drawer__dl-hint">内测版安装包（Android APK,暂未上架应用商店）。如系统提示,请在设置中允许「安装未知来源应用」。</p>
       </div>
 
       <form class="drawer__form" id="notifyForm" novalidate>
