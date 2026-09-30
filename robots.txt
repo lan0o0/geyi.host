@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# 后端接口与下载计数代理，不需要被索引
+Disallow: /api/
+Disallow: /download/
+
+Sitemap: https://geyi.host/sitemap.xml
