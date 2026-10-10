@@ -51,14 +51,19 @@ const $ = (sel) => dom.window.document.querySelector(sel);
   ok($("[data-drawer-device]").hidden === true, "顶部产品图已隐藏");
   ok($("[data-drawer-shots]").hidden === false, "应用截图区仍显示");
 
-  console.log("=== 千帆一答抽屉：PC 端下载 + 计数");
-  const pc = $("[data-drawer-pcdl]");
-  ok(pc.hidden === false, "PC 下载块显示");
+  console.log("=== 千帆一答抽屉：Android + Windows 双端下载按钮与计数");
+  ok($("[data-drawer-download]").hidden === false, "下载区显示");
+  ok($("[data-drawer-pc-link]").hidden === false, "Windows 下载按钮显示");
   ok($("[data-drawer-pc-link]").getAttribute("href") === "/download/qianfan-yida-desktop-v0.1.7-windows-x64.exe",
-     "PC 下载链接正确");
-  ok(/v0\.1\.7/.test($("[data-drawer-pc-meta]").textContent), "PC 版本信息已填充");
-  ok($("[data-drawer-pc-count]").textContent.trim() === "3", `PC 下载次数已渲染（实际 "${$("[data-drawer-pc-count]").textContent.trim()}"）`);
-  ok($("[data-drawer-dl-count]").textContent.trim() === "21", `APK 下载次数仍渲染（实际 "${$("[data-drawer-dl-count]").textContent.trim()}"）`);
+     "Windows 下载链接正确");
+  ok($("[data-drawer-dl-link]").hidden === false, "Android 下载按钮显示");
+  ok($("[data-drawer-dl-link]").getAttribute("href") === "/download/qianfan-yida-v1.0.53.apk", "Android 下载链接正确");
+  ok($("[data-drawer-pc-meta-row]").hidden === false, "Windows 版本行显示");
+  ok(/v0\.1\.7/.test($("[data-drawer-pc-meta]").textContent), "Windows 版本信息已填充");
+  ok($("[data-drawer-pc-count]").textContent.trim() === "3", `Windows 下载次数已渲染（实际 "${$("[data-drawer-pc-count]").textContent.trim()}"）`);
+  ok($("[data-drawer-dl-meta-row]").hidden === false, "Android 版本行显示");
+  ok($("[data-drawer-dl-count]").textContent.trim() === "21", `Android 下载次数已渲染（实际 "${$("[data-drawer-dl-count]").textContent.trim()}"）`);
+  ok($("[data-drawer-download]").querySelectorAll(".drawer__dl-btn").length === 2, "下载区共 2 个按钮");
 
   console.log("=== 千帆一答抽屉：详情按钮");
   const detail = $("[data-drawer-detail]");
@@ -71,7 +76,8 @@ const $ = (sel) => dom.window.document.querySelector(sel);
   other.click();
   await sleep(600);
   ok($("[data-drawer-device]").hidden === false, "顶部产品图恢复显示");
-  ok($("[data-drawer-pcdl]").hidden === true, "PC 下载块隐藏");
+  ok($("[data-drawer-pc-link]").hidden === true, "Windows 下载按钮隐藏（该产品无桌面版）");
+  ok($("[data-drawer-pc-meta-row]").hidden === true, "Windows 版本行隐藏");
   ok($("[data-drawer-detail]").hidden === true, "详情按钮隐藏");
   ok($("[data-drawer-shots]").hidden === true, "截图区隐藏（该产品无截图）");
   ok($("#notifyForm").hidden === false, "预约表单恢复显示");

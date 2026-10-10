@@ -1572,3 +1572,10 @@ main { -webkit-overflow-scrolling: touch; }
 .nav__mobile-link--sub { padding-left: 26px; font-size: 15px; }
 .drawer__download--pc { margin-top: 10px; }
 .drawer__detail { margin-top: 14px; width: 100%; justify-content: center; text-align: center; }
+
+/* 抽屉下载区：双端按钮并列（2026-10-10） */
+.drawer__dl-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.drawer__dl-row .drawer__dl-btn { flex: 1 1 190px; width: auto; }
+.drawer__dl-row .drawer__dl-btn[hidden] { display: none; }
+.drawer__dl-meta[hidden] { display: none; }
+@media (max-width: 420px) { .drawer__dl-row .drawer__dl-btn { flex: 1 1 100%; } }

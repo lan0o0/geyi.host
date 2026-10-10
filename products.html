@@ -113,7 +113,7 @@
   ]
 }
   </script>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=20261010155821" />
 </head>
 <body>
   <a class="skip-link" href="#main">跳转到主要内容</a>
@@ -411,26 +411,26 @@
         <div data-drawer-features></div>
       </div>
 
-      <!-- 下载区（仅提供安装包的产品使用：下载按钮 + 版本信息 + 已下载次数） -->
+      <!-- 下载区（提供安装包的产品使用：Android / Windows 双端按钮 + 各自版本与下载次数） -->
       <div class="drawer__download" data-drawer-download hidden>
-        <a class="btn btn--solid drawer__dl-btn" data-drawer-dl-link href="/download/qianfan-yida-v1.0.53.apk">下载 Android 内测版 APK</a>
-        <p class="drawer__dl-meta">
-          <strong data-drawer-dl-meta>v1.0.53 · 279 MB</strong>
-          <span aria-hidden="true">·</span>
-          已下载 <strong data-drawer-dl-count>—</strong> 次
-        </p>
-        <p class="drawer__dl-hint">内测版安装包（Android APK,暂未上架应用商店）。如系统提示,请在设置中允许「安装未知来源应用」。</p>
-      </div>
-
-      <!-- PC 端下载（仅提供桌面版的产品使用，由 data-pc-download 驱动） -->
-      <div class="drawer__download drawer__download--pc" data-drawer-pcdl hidden>
-        <a class="btn btn--solid drawer__dl-btn" data-drawer-pc-link href="/download/qianfan-yida-desktop-v0.1.7-windows-x64.exe">下载 Windows 桌面版</a>
-        <p class="drawer__dl-meta">
-          <strong data-drawer-pc-meta>v0.1.7 · 4.1 MB · Windows</strong>
+        <div class="drawer__dl-row">
+          <a class="btn btn--solid drawer__dl-btn" data-drawer-pc-link href="/download/qianfan-yida-desktop-v0.1.7-windows-x64.exe" hidden>下载 Windows 桌面版</a>
+          <a class="btn btn--solid drawer__dl-btn" data-drawer-dl-link href="/download/qianfan-yida-v1.0.53.apk">下载 Android 版 APK</a>
+        </div>
+        <p class="drawer__dl-meta" data-drawer-pc-meta-row hidden>
+          Windows 桌面版 <strong data-drawer-pc-meta>v0.1.7 · 4.1 MB</strong>
           <span aria-hidden="true">·</span>
           已下载 <strong data-drawer-pc-count>—</strong> 次
         </p>
-        <p class="drawer__dl-hint">Windows 10 / 11（64 位）安装包。首次运行若提示「未知发布者」,请选择「更多信息 → 仍要运行」。</p>
+        <p class="drawer__dl-meta" data-drawer-dl-meta-row>
+          Android <strong data-drawer-dl-meta>v1.0.53 · 279 MB</strong>
+          <span aria-hidden="true">·</span>
+          已下载 <strong data-drawer-dl-count>—</strong> 次
+        </p>
+        <p class="drawer__dl-hint">
+          安装包由本站直发：Windows 10 / 11（64 位）、Android 8.0 及以上。<br />
+          Windows 首次运行若提示「未知发布者」,请选择「更多信息 → 仍要运行」;Android 如提示未知来源,请在系统设置中允许安装。
+        </p>
       </div>
 
       <!-- 详情页入口（由 data-detail-url 驱动） -->
@@ -468,6 +468,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js" defer></script>
+  <script src="js/main.js?v=20261010155821" defer></script>
 </body>
 </html>
