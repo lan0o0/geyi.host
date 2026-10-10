@@ -375,6 +375,11 @@
     const elDlLink = $('[data-drawer-dl-link]', drawer);
     const elDlMeta = $('[data-drawer-dl-meta]', drawer);
     const elDlCount = $('[data-drawer-dl-count]', drawer);
+    const elPcDl = $('[data-drawer-pcdl]', drawer);
+    const elPcLink = $('[data-drawer-pc-link]', drawer);
+    const elPcMeta = $('[data-drawer-pc-meta]', drawer);
+    const elPcCount = $('[data-drawer-pc-count]', drawer);
+    const elDetail = $('[data-drawer-detail]', drawer);
     const notifyForm = $('#notifyForm', drawer);
 
     const openDrawer = (card) => {
@@ -442,8 +447,33 @@
           elDownload.hidden = true;
         }
       }
+      // 顶部单张产品图：卡片声明 data-hide-device 时隐藏（详情页截图区仍在）
+      if (elDevice) elDevice.hidden = !!card.dataset.hideDevice;
+      // PC 端下载（Windows 桌面版）：仅当卡片提供了 data-pc-download 时展示，并取实时下载次数
+      if (elPcDl) {
+        const pcDownload = card.dataset.pcDownload;
+        if (pcDownload) {
+          elPcDl.hidden = false;
+          if (elPcLink) elPcLink.href = pcDownload;
+          if (elPcMeta) elPcMeta.textContent = card.dataset.pcMeta || 'Windows 桌面版';
+          if (elPcCount) elPcCount.textContent = '—';
+          loadDownloadCount(card.dataset.pcName, elPcCount);
+        } else {
+          elPcDl.hidden = true;
+        }
+      }
+      // 详情页入口：仅当卡片提供了 data-detail-url 时展示
+      if (elDetail) {
+        const detailUrl = card.dataset.detailUrl;
+        if (detailUrl) {
+          elDetail.hidden = false;
+          elDetail.href = detailUrl;
+        } else {
+          elDetail.hidden = true;
+        }
+      }
       // 已是可下载的内测产品时，无需再"预约上架提醒"
-      if (notifyForm) notifyForm.hidden = !!download;
+      if (notifyForm) notifyForm.hidden = !!(download || card.dataset.pcDownload || card.dataset.detailUrl);
       if (elFeatures) {
         elFeatures.innerHTML = features
           .map((f) => `<div class="drawer__feature"><strong>·</strong> ${f}</div>`)

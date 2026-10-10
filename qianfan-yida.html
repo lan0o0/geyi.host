@@ -115,8 +115,13 @@
       </a>
       <nav class="nav__links" aria-label="主导航">
         <a class="nav__link" href="/">首页</a>
-        <a class="nav__link" href="products.html">产品矩阵</a>
-        <a class="nav__link" href="qianfan-yida.html" aria-current="page">千帆一答</a>
+        <div class="nav__item">
+          <a class="nav__link" href="products.html">产品矩阵</a>
+          <div class="nav__dropdown" role="menu" aria-label="产品子菜单">
+            <a class="nav__dropdown-link" role="menuitem" href="products.html">全部产品</a>
+            <a class="nav__dropdown-link" role="menuitem" href="qianfan-yida.html" aria-current="page">千帆一答</a>
+          </div>
+        </div>
         <a class="nav__link" href="about.html">技术理念</a>
         <a class="nav__link" href="contact.html">联系我们</a>
       </nav>
@@ -128,7 +133,7 @@
     <div class="nav__mobile" id="navMobile" aria-hidden="true">
       <a class="nav__mobile-link" href="/">首页</a>
       <a class="nav__mobile-link" href="products.html">产品矩阵</a>
-      <a class="nav__mobile-link" href="qianfan-yida.html">千帆一答</a>
+      <a class="nav__mobile-link nav__mobile-link--sub" href="qianfan-yida.html">千帆一答 · 价格与下载</a>
       <a class="nav__mobile-link" href="about.html">技术理念</a>
       <a class="nav__mobile-link" href="contact.html">联系我们</a>
       <a class="btn btn--solid nav__mobile-cta" href="#download">下载安装</a>

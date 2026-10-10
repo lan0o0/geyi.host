@@ -1530,3 +1530,45 @@ main { -webkit-overflow-scrolling: touch; }
   .hero__orb { animation: none; }
   .hero__scroll-dot { animation: none; }
 }
+
+/* ===== 导航下拉 + 抽屉 PC 下载/详情（2026-10-10）===== */
+.nav__item { position: relative; display: flex; }
+.nav__item > .nav__link::after {
+  content: "";
+  width: 5px; height: 5px; margin-left: 7px;
+  border-right: 1.4px solid currentColor;
+  border-bottom: 1.4px solid currentColor;
+  transform: rotate(45deg) translateY(-1px);
+  opacity: .5;
+  transition: transform var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease);
+}
+.nav__item:hover > .nav__link::after,
+.nav__item:focus-within > .nav__link::after { transform: rotate(45deg) translateY(1px); opacity: .9; }
+
+.nav__dropdown {
+  position: absolute; top: 100%; left: 0;
+  min-width: 180px; padding: 8px;
+  background: var(--c-bg-elev);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-md);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, .45);
+  display: flex; flex-direction: column; gap: 2px;
+  opacity: 0; visibility: hidden; transform: translateY(6px); pointer-events: none;
+  transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease), visibility var(--t-fast);
+  z-index: 60;
+}
+.nav__item:hover > .nav__dropdown,
+.nav__item:focus-within > .nav__dropdown {
+  opacity: 1; visibility: visible; transform: none; pointer-events: auto;
+}
+.nav__dropdown-link {
+  padding: 9px 12px; border-radius: var(--r-sm);
+  font-size: 14px; color: var(--c-text-mute); white-space: nowrap;
+  transition: color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+}
+.nav__dropdown-link:hover,
+.nav__dropdown-link:focus-visible { color: var(--c-text); background: var(--c-surface); }
+.nav__dropdown-link[aria-current="page"] { color: var(--c-text); }
+.nav__mobile-link--sub { padding-left: 26px; font-size: 15px; }
+.drawer__download--pc { margin-top: 10px; }
+.drawer__detail { margin-top: 14px; width: 100%; justify-content: center; text-align: center; }

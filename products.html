@@ -129,8 +129,13 @@
       </a>
       <nav class="nav__links" aria-label="主导航">
         <a class="nav__link" href="/">首页</a>
-        <a class="nav__link" href="products.html">产品矩阵</a>
-        <a class="nav__link" href="qianfan-yida.html">千帆一答</a>
+        <div class="nav__item">
+          <a class="nav__link" href="products.html">产品矩阵</a>
+          <div class="nav__dropdown" role="menu" aria-label="产品子菜单">
+            <a class="nav__dropdown-link" role="menuitem" href="products.html">全部产品</a>
+            <a class="nav__dropdown-link" role="menuitem" href="qianfan-yida.html">千帆一答</a>
+          </div>
+        </div>
         <a class="nav__link" href="about.html">技术理念</a>
         <a class="nav__link" href="about.html#team">关于我们</a>
         <a class="nav__link" href="contact.html">联系我们</a>
@@ -143,7 +148,7 @@
     <div class="nav__mobile" id="navMobile" aria-hidden="true">
       <a class="nav__mobile-link" href="/">首页</a>
       <a class="nav__mobile-link" href="products.html">产品矩阵</a>
-      <a class="nav__mobile-link" href="qianfan-yida.html">千帆一答</a>
+      <a class="nav__mobile-link nav__mobile-link--sub" href="qianfan-yida.html">千帆一答 · 价格与下载</a>
       <a class="nav__mobile-link" href="about.html">技术理念</a>
       <a class="nav__mobile-link" href="about.html#team">关于我们</a>
       <a class="nav__mobile-link" href="contact.html">联系我们</a>
@@ -181,6 +186,11 @@
         data-download="/download/qianfan-yida-v1.0.53.apk"
         data-download-name="qianfan-yida-v1.0.53.apk"
         data-download-meta="v1.0.53 · 279 MB · Android"
+        data-hide-device="1"
+        data-pc-download="/download/qianfan-yida-desktop-v0.1.7-windows-x64.exe"
+        data-pc-name="qianfan-yida-desktop-v0.1.7-windows-x64.exe"
+        data-pc-meta="v0.1.7 · 4.1 MB · Windows 10/11 (64 位)"
+        data-detail-url="/qianfan-yida.html"
         data-status-text="内测中"
         data-features="实时听懂面试官提问,秒级给出答题要点::简历 / 岗位 JD / 预设问答三件套,上台之前先备好::全屏历史问答 + 阿里云 Qwen ASR 流式语音识别">
         <div class="product__device-wrap">
@@ -411,6 +421,20 @@
         </p>
         <p class="drawer__dl-hint">内测版安装包（Android APK,暂未上架应用商店）。如系统提示,请在设置中允许「安装未知来源应用」。</p>
       </div>
+
+      <!-- PC 端下载（仅提供桌面版的产品使用，由 data-pc-download 驱动） -->
+      <div class="drawer__download drawer__download--pc" data-drawer-pcdl hidden>
+        <a class="btn btn--solid drawer__dl-btn" data-drawer-pc-link href="/download/qianfan-yida-desktop-v0.1.7-windows-x64.exe">下载 Windows 桌面版</a>
+        <p class="drawer__dl-meta">
+          <strong data-drawer-pc-meta>v0.1.7 · 4.1 MB · Windows</strong>
+          <span aria-hidden="true">·</span>
+          已下载 <strong data-drawer-pc-count>—</strong> 次
+        </p>
+        <p class="drawer__dl-hint">Windows 10 / 11（64 位）安装包。首次运行若提示「未知发布者」,请选择「更多信息 → 仍要运行」。</p>
+      </div>
+
+      <!-- 详情页入口（由 data-detail-url 驱动） -->
+      <a class="btn btn--ghost drawer__detail" data-drawer-detail hidden href="/qianfan-yida.html">查看详情 · 价格 / 购买 / 售后</a>
 
       <form class="drawer__form" id="notifyForm" novalidate>
         <div class="field">
