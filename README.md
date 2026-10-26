@@ -51,6 +51,7 @@
 ├── assets/  jpg/                 # 图标与产品截图（中文文件名可用，nginx 按 UTF-8 处理）
 ├── robots.txt  sitemap.xml       # SEO（新增页面记得进 sitemap）
 ├── tools/baidu-push.sh           # 百度普通收录主动推送（只入库，不上线）
+├── tools/apk-sign-info.py        # 读 APK 备案三件套：包名 / 公钥 / MD5（只入库，不上线）
 └── sitecheck/                    # jsdom 回归脚本（只入库，不上线）
 ```
 
@@ -132,6 +133,9 @@ node products_drawer_check.js   # 产品矩阵抽屉：千帆一答隐藏顶图 
 
 - `sitemap.xml` 新增页面要同步收录；`robots.txt` 已屏蔽 `/api/`、`/download/`
 - 百度推送：`tools/baidu-push.sh`（token 放服务器 `/root/.baidu-token`，600 权限）
+- App 备案取值：`python3 tools/apk-sign-info.py /var/www/download/qianfan-yida-vX.apk`
+  → 包名 / 公钥(Base64 单行) / MD5(大写无冒号)，另附 SHA1、SHA256、证书主体与有效期。
+  发版换了 keystore 时 MD5 会变，备案需同步变更。
   - `./baidu-push.sh` 只推新增 URL；`--force` 全量；`--list` 干跑
 - 站点验证文件（`baidu_verify_codeva-*.html`、`4edaa8d6*.txt`）**切勿删除**
 
