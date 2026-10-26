@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+
+  <title>AI面试助手怎么选 · AI面试辅助工具选型指南（2026）· 格一科技</title>
+  <link rel="canonical" href="https://geyi.host/ai-interview-assistant.html" />
+  <meta name="description" content="AI面试助手和AI面试辅助工具怎么选？本文讲清三类工具（模拟面试、实时辅助、笔试辅助）的差别，给出延迟、隐私、计费、多端同步等 7 条选型硬指标与常见误区，并附《千帆一答》AI面试助手的实际使用流程、价格与下载入口。" />
+  <meta name="keywords" content="AI面试助手,AI面试辅助工具,面试辅助软件,实时面试助手,AI模拟面试,面试提词器,千帆一答,选型指南,格一科技" />
+  <meta name="author" content="郑州格一网络科技有限公司" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AI面试助手怎么选 · AI面试辅助工具选型指南（2026）" />
+  <meta property="og:description" content="三类 AI面试助手 的区别、7 条选型硬指标、常见误区，附《千帆一答》使用流程与下载入口。" />
+  <meta property="og:url" content="https://geyi.host/ai-interview-assistant.html" />
+  <meta property="og:site_name" content="格一科技" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="https://geyi.host/assets/qianfan-yida.jpg" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Cpath d='M9 22 L16 9 L23 22' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "AI面试助手怎么选 · AI面试辅助工具选型指南（2026）",
+      "inLanguage": "zh-CN",
+      "datePublished": "2026-10-26",
+      "dateModified": "2026-10-26",
+      "author": { "@type": "Organization", "name": "郑州格一网络科技有限公司" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "郑州格一网络科技有限公司",
+        "alternateName": "格一科技"
+      },
+      "mainEntityOfPage": "https://geyi.host/ai-interview-assistant.html",
+      "about": ["AI面试助手", "AI面试辅助工具"],
+      "description": "对比三类 AI 面试工具，给出 7 条选型硬指标与常见误区，附千帆一答的使用流程与价格。"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://geyi.host/" },
+        { "@type": "ListItem", "position": 2, "name": "AI面试助手选型指南", "item": "https://geyi.host/ai-interview-assistant.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "AI面试助手和AI面试辅助工具有什么区别？", "acceptedAnswer": { "@type": "Answer", "text": "两者通常指同一类软件，叫法不同：AI面试助手偏重「随时可用、给出答题要点」，AI面试辅助工具偏重「解决具体环节的问题」，如实时提词、简历岗位匹配、笔试辅助、面试复盘。选型时看功能而不是看名字。" } },
+        { "@type": "Question", "name": "AI面试助手会不会被面试官发现？", "acceptedAnswer": { "@type": "Answer", "text": "取决于产品形态。手机端或窗口化悬浮的形态一旦共享屏幕就会暴露；桌面版若做成置顶悬浮、不出现在共享窗口里的独立图层，暴露风险更低，但任何工具都无法保证在所有面试系统下完全不可见。务必先确认目标公司是否允许使用辅助工具。" } },
+        { "@type": "Question", "name": "实时类AI面试助手的延迟大概是多少？", "acceptedAnswer": { "@type": "Answer", "text": "主流方案是流式语音识别加流式生成，正常情况下从提问结束到出要点在 1 到 3 秒；延迟主要受网络上行和模型首字时间影响，弱网时会明显变长。选型时建议用真实面试环境（含耳机、会议软件）实测。" } },
+        { "@type": "Question", "name": "AI面试助手怎么收费比较合理？", "acceptedAnswer": { "@type": "Answer", "text": "分为订阅制（按月或按年）与按时长计费两类。面试是低频、集中的场景，按时长计费的性价比通常更高，但要注意是否「按自然时间扣」还是「按实际使用扣」——后者更友好，停用即停、余额不清零。" } },
+        { "@type": "Question", "name": "面试录音会不会被上传到云端？", "acceptedAnswer": { "@type": "Answer", "text": "看产品说明里的转写方式。端侧转写的产品音频不出本机，仅把文本送入模型，隐私风险更低；宣称云端转写的产品则会把语音上传。涉及身份、公司信息的面试，建议优先选端侧转写或可关闭留存的方案。" } },
+        { "@type": "Question", "name": "AI面试助手支持哪些设备？", "acceptedAnswer": { "@type": "Answer", "text": "常见为 Android 手机端加 Windows 桌面端。桌面端适合线上面试（音源更稳定、悬浮窗更好用），手机端适合电话面试或在路上临时使用。两端共用一个账号与时长余额会更方便。" } },
+        { "@type": "Question", "name": "用AI面试助手算不算作弊？", "acceptedAnswer": { "@type": "Answer", "text": "是否违规取决于面试方规则。把它当作准备工具（梳理简历、模拟问答、赛后复盘）没有争议；在明确禁止使用辅助工具的真实面试中使用，可能被判定为违规甚至取消录用。建议如实阅读面试须知后自行判断。" } },
+        { "@type": "Question", "name": "千帆一答是哪一类AI面试助手？", "acceptedAnswer": { "@type": "Answer", "text": "《千帆一答》属于实时辅助类：面试中流式识别提问并给出答题要点，同时提供简历、岗位 JD、预设问答三件套准备与赛后复盘。支持 Windows 10/11 与 Android 8.0 以上，按时长计费，1 小时 29 元起。" } }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="css/style.css?v=20261010155821" />
+  <style>
+    /* 选型指南页专用样式（前缀 gd-） */
+    .gd-wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 96px; }
+    .gd-section { margin-top: 64px; }
+    .gd-h2 { font-size: clamp(21px, 2.6vw, 28px); letter-spacing: .01em; margin: 0 0 8px; }
+    .gd-h3 { font-size: 18px; margin: 26px 0 6px; }
+    .gd-eyebrow { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; opacity: .55; margin: 0 0 10px; }
+    .gd-lead { opacity: .74; line-height: 1.95; margin: 0 0 22px; }
+    .gd-p { opacity: .82; line-height: 1.95; margin: 0 0 16px; }
+    .gd-card { border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 24px; background: rgba(255,255,255,.03); }
+    .gd-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    .gd-table th, .gd-table td { text-align: left; padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.1); vertical-align: top; }
+    .gd-table th { font-weight: 600; opacity: .72; white-space: nowrap; }
+    .gd-table tr:last-child td { border-bottom: 0; }
+    .gd-list { margin: 0 0 16px; padding-left: 22px; line-height: 2; opacity: .84; }
+    .gd-toc { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; }
+    .gd-toc a { text-decoration: none; border-bottom: 1px dashed rgba(255,255,255,.28); }
+    .gd-steps { counter-reset: gd; list-style: none; margin: 0; padding: 0; }
+    .gd-steps li { counter-increment: gd; position: relative; padding: 0 0 18px 44px; line-height: 1.95; opacity: .86; }
+    .gd-steps li::before { content: counter(gd); position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); display: flex; align-items: center; justify-content: center; font-size: 13px; }
+    .gd-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .gd-btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 22px; border-radius: 12px; font-size: 15px; text-decoration: none; border: 1px solid transparent; }
+    .gd-btn--primary { background: #fff; color: #000; }
+    .gd-btn--ghost { border-color: rgba(255,255,255,.3); color: inherit; }
+    .gd-note { font-size: 13px; opacity: .6; line-height: 1.9; margin-top: 14px; }
+    .gd-faq th { width: 34%; }
+    @media (prefers-color-scheme: light) {
+      .gd-card { border-color: rgba(0,0,0,.12); background: rgba(0,0,0,.02); }
+      .gd-table th, .gd-table td { border-bottom-color: rgba(0,0,0,.1); }
+      .gd-btn--primary { background: #000; color: #fff; }
+      .gd-btn--ghost { border-color: rgba(0,0,0,.25); }
+      .gd-toc a { border-bottom-color: rgba(0,0,0,.28); }
+      .gd-steps li::before { border-color: rgba(0,0,0,.3); }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳转到主要内容</a>
+
+  <!-- ===================== Navigation ===================== -->
+  <header class="nav" id="nav" data-state="scrolled">
+    <div class="nav__inner">
+      <a class="nav__logo" href="/" aria-label="格一科技 首页">
+        <svg class="nav__logo-mark" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M9 22 L16 9 L23 22" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav__logo-text">格一科技</span>
+      </a>
+      <nav class="nav__links" aria-label="主导航">
+        <a class="nav__link" href="/">首页</a>
+        <div class="nav__item">
+          <a class="nav__link" href="products.html">产品矩阵</a>
+          <div class="nav__dropdown" role="menu" aria-label="产品子菜单">
+            <a class="nav__dropdown-link" role="menuitem" href="products.html">全部产品</a>
+            <a class="nav__dropdown-link" role="menuitem" href="qianfan-yida.html">千帆一答</a>
+            <a class="nav__dropdown-link" role="menuitem" href="pianyu-shiguang.html">片羽拾光</a>
+          </div>
+        </div>
+        <a class="nav__link" href="about.html">技术理念</a>
+        <a class="nav__link" href="contact.html">联系我们</a>
+      </nav>
+      <a class="nav__cta btn btn--ghost" href="qianfan-yida.html#download">下载安装</a>
+      <button class="nav__burger" id="navBurger" aria-label="打开菜单" aria-expanded="false" aria-controls="navMobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <a class="nav__mobile-link" href="/">首页</a>
+      <a class="nav__mobile-link" href="products.html">产品矩阵</a>
+      <a class="nav__mobile-link nav__mobile-link--sub" href="qianfan-yida.html">千帆一答 · 价格与下载</a>
+      <a class="nav__mobile-link nav__mobile-link--sub" href="pianyu-shiguang.html">片羽拾光 · 下载与会员</a>
+      <a class="nav__mobile-link" href="about.html">技术理念</a>
+      <a class="nav__mobile-link" href="contact.html">联系我们</a>
+      <a class="btn btn--solid nav__mobile-cta" href="qianfan-yida.html#download">下载安装</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <p class="page-hero__eyebrow" data-reveal>GUIDE · AI INTERVIEW ASSISTANT</p>
+      <h1 class="page-hero__title" data-reveal data-reveal-delay="1">AI面试助手 / AI面试辅助工具怎么选</h1>
+      <p class="page-hero__desc" data-reveal data-reveal-delay="2">
+        「AI面试助手」和「AI面试辅助工具」其实是同一类软件的不同叫法。但它们的功能差别很大——
+        有的只做模拟练习,有的在真实面试里实时给要点,有的专攻笔试截图解题。选错类型,钱就白花了。
+        这篇指南把三类工具拆开讲,给出 7 条可验证的选型指标,最后附《千帆一答》的实际使用流程与价格。
+      </p>
+    </section>
+
+    <div class="gd-wrap">
+
+      <!-- ===================== 目录 ===================== -->
+      <section class="gd-section" id="toc" aria-labelledby="gd-toc-h">
+        <p class="gd-eyebrow">00 / 目录</p>
+        <h2 class="gd-h2" id="gd-toc-h">先看结论</h2>
+        <p class="gd-p">
+          面试是低频、集中、一次性的事件。选型时先问自己一句:<strong>我需要的是「练」还是「答」?</strong>
+          只想熟悉流程、缓解紧张,选模拟面试类就够;要在真实面试中听清问题、组织要点,才需要实时辅助类;
+          如果卡的是笔试和在线测评,要的是解题辅助类。三者的价格、设备要求、风险完全不同,混着比价没有意义。
+        </p>
+        <ul class="gd-toc">
+          <li><a href="#types">1. 三类 AI面试辅助工具的区别</a></li>
+          <li><a href="#criteria">2. 七条选型硬指标（含自测方法）</a></li>
+          <li><a href="#pitfalls">3. 五个常见误区</a></li>
+          <li><a href="#howto">4. 千帆一答怎么用:准备 → 面试 → 复盘</a></li>
+          <li><a href="#price">5. 价格、系统要求与下载</a></li>
+          <li><a href="#faq">6. 常见问题</a></li>
+        </ul>
+      </section>
+
+      <!-- ===================== 1 三类 ===================== -->
+      <section class="gd-section" id="types" aria-labelledby="gd-types-h">
+        <p class="gd-eyebrow">01 / 分类</p>
+        <h2 class="gd-h2" id="gd-types-h">三类 AI面试辅助工具的区别</h2>
+        <p class="gd-lead">同样是搜「AI面试助手」,下载到的可能是完全不同用途的软件。先对号入座。</p>
+        <div class="gd-card">
+          <table class="gd-table">
+            <thead>
+              <tr><th>类型</th><th>典型场景</th><th>核心能力</th><th>不适合</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>模拟面试类</th>
+                <td>面试前练习,自己对着 AI 演练</td>
+                <td>AI 扮演面试官逐题追问、给评分和表达建议</td>
+                <td>真实面试中需要即时答案时用不上;题目多为通用题库,岗位匹配度有限</td>
+              </tr>
+              <tr>
+                <th>实时辅助类</th>
+                <td>线上/电话面试进行中</td>
+                <td>流式语音识别面试官提问,秒级给出答题要点与表达思路</td>
+                <td>需要安静环境与麦克风;对笔试、算法题几乎无帮助</td>
+              </tr>
+              <tr>
+                <th>笔试 / 测评辅助类</th>
+                <td>在线笔试、代码测评、行测题</td>
+                <td>截图识别题目、给出解法或答案</td>
+                <td>对口语面试无效;多数此类工具依赖屏幕共享可见性,风险最高</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="gd-note">
+          《千帆一答》属于第 2 类:实时辅助。它不做模拟面试,也不做笔试解题——这是刻意取舍,
+          把识别延迟和要点质量做扎实比堆功能更有用。
+        </p>
+      </section>
+
+      <!-- ===================== 2 七条指标 ===================== -->
+      <section class="gd-section" id="criteria" aria-labelledby="gd-criteria-h">
+        <p class="gd-eyebrow">02 / 选型</p>
+        <h2 class="gd-h2" id="gd-criteria-h">七条选型硬指标（都能自己测）</h2>
+        <p class="gd-lead">宣传页都会写「毫秒响应」「高度隐私」。把下面七条逐条对一遍,能筛掉八成产品。</p>
+
+        <h3 class="gd-h3">① 出要点延迟（最关键）</h3>
+        <p class="gd-p">
+          问一句「请做个自我介绍」,从你说完到屏幕上出现要点,理想区间是 1–3 秒。超过 5 秒,
+          你就已经在尴尬地和面试官对看了。自测方法:戴耳机、开着会议软件、在弱网下手动计时,而不是看宣传数字。
+        </p>
+
+        <h3 class="gd-h3">② 语音去哪了（隐私底线）</h3>
+        <p class="gd-p">
+          端侧转写的产品音频不出本机,只把文字送到模型;云端转写会把语音整段上传。
+          涉及公司名、项目细节、身份证号这类信息时,这一条比功能重要。
+        </p>
+
+        <h3 class="gd-h3">③ 共享屏幕时会不会露出来</h3>
+        <p class="gd-p">
+          手机端贴着电脑看、窗口化悬浮的形态,一旦共享屏幕就必然暴露。桌面端如果做成独立悬浮层、
+          不进入被共享的窗口,暴露概率更低——但没有任何工具能保证在所有面试系统里都不可见,
+          别信「100% 隐形」这种说法。
+        </p>
+
+        <h3 class="gd-h3">④ 计费方式:订阅还是按时长</h3>
+        <p class="gd-p">
+          面试一年可能只有十几次。月付订阅常常「为不用的天数付钱」;按时长计费更贴合场景,
+          但要看清楚是<strong>按自然时间扣</strong>还是<strong>按实际使用秒数扣</strong>。后者停用即停、余额不清零,才不吃亏。
+        </p>
+
+        <h3 class="gd-h3">⑤ 设备与多端同步</h3>
+        <p class="gd-p">
+          线上面试用电脑更稳,电话面试用手机更方便。两端共用一个账号与同一份时长余额,
+          能省掉「换设备要重新买」的坑。
+        </p>
+
+        <h3 class="gd-h3">⑥ 准备与复盘能力</h3>
+        <p class="gd-p">
+          只有「实时回答」的产品,用完就没了。能把简历、岗位 JD、预设问答沉淀下来,面试后还能回看问答记录的,
+          第二次面试的成功率明显更高。
+        </p>
+
+        <h3 class="gd-h3">⑦ 合规与诚信边界</h3>
+        <p class="gd-p">
+          先确认目标公司的面试须知是否允许使用辅助工具。把它当准备和表达辅助工具没有争议;
+          在明确禁止的面试中使用,可能被判定违规。这条不是产品能力,但决定你要不要买。
+        </p>
+      </section>
+
+      <!-- ===================== 3 误区 ===================== -->
+      <section class="gd-section" id="pitfalls" aria-labelledby="gd-pit-h">
+        <p class="gd-eyebrow">03 / 避坑</p>
+        <h2 class="gd-h2" id="gd-pit-h">五个常见误区</h2>
+        <div class="gd-card">
+          <ul class="gd-list">
+            <li><strong>「免费无限用」最贵。</strong>免费额度通常按天或按次限流,面试当天刚好用完的例子太多;先确认免费额度的计数规则再决定。</li>
+            <li><strong>题库大 ≠ 答案好。</strong>面试官问的是你简历里的项目,背来的模板答不出细节。能把你的简历和 JD 关联起来的,比十万道题库更有用。</li>
+            <li><strong>「AI 隐形」不是承诺。</strong>任何宣称完全不可检测的产品,都无法覆盖所有会议软件的共享方式。</li>
+            <li><strong>延迟看模型,也看网络。</strong>同一款产品在公司和家里的体验可能差一倍,面试前务必在同一网络下试用。</li>
+            <li><strong>只用一次就买年费。</strong>先买单场/单小时,确认适合自己再考虑长期方案。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===================== 4 使用流程 ===================== -->
+      <section class="gd-section" id="howto" aria-labelledby="gd-how-h">
+        <p class="gd-eyebrow">04 / 实操</p>
+        <h2 class="gd-h2" id="gd-how-h">千帆一答怎么用:准备 → 面试 → 复盘</h2>
+        <p class="gd-lead">以《千帆一答》为例走一遍完整流程,其他实时辅助类工具的步骤大同小异。</p>
+        <ol class="gd-steps">
+          <li><strong>准备（面试前 30 分钟）。</strong>粘贴简历与岗位 JD,把「为什么选我们」「最有挑战的项目」这类高频问题写进预设问答,让 AI 先熟悉你的经历。</li>
+          <li><strong>试音（面试前 5 分钟）。</strong>戴上耳机,开启辅助功能试一句,确认字幕延迟在你可接受的范围内;提前把要点窗置于屏幕角落。</li>
+          <li><strong>面试中。</strong>面试官提问后,要点会流式出现在悬浮层;照着要点组织语言,不要逐字念稿,停顿比念稿自然得多。</li>
+          <li><strong>复盘（面试后）。</strong>回看问答记录,把答得卡的地方补进预设问答,下次直接命中。</li>
+        </ol>
+        <p class="gd-note">
+          音频仅在本机转写、不上传云端存储;按实际使用秒数从时长余额扣减,关闭辅助即停止扣减。
+        </p>
+        <div class="gd-cta">
+          <a class="gd-btn gd-btn--primary" href="qianfan-yida.html#download">下载千帆一答</a>
+          <a class="gd-btn gd-btn--ghost" href="qianfan-yida.html#price">查看价格与权益</a>
+        </div>
+      </section>
+
+      <!-- ===================== 5 价格下载 ===================== -->
+      <section class="gd-section" id="price" aria-labelledby="gd-price-h">
+        <p class="gd-eyebrow">05 / 价格与下载</p>
+        <h2 class="gd-h2" id="gd-price-h">价格、系统要求与下载</h2>
+        <div class="gd-card">
+          <table class="gd-table">
+            <thead>
+              <tr><th>项目</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr><th>收费方式</th><td>按时长计费:1 小时 ¥29 / 2 小时 ¥49 / 3 小时 ¥59,支付宝付款,支付成功后自动到账</td></tr>
+              <tr><th>支持系统</th><td>Windows 10 / 11(64 位)桌面版;Android 8.0 及以上手机版,同一账号共用时长余额</td></tr>
+              <tr><th>下载方式</th><td>官网直发安装包(本站下载 .exe / .apk),不走应用商店</td></tr>
+              <tr><th>售后</th><td>未使用可 7 日内申请原路退款;到账异常凭支付宝单号核对补发</td></tr>
+            </tbody>
+          </table>
+          <div class="gd-cta">
+            <a class="gd-btn gd-btn--primary" href="qianfan-yida.html#download">前往下载页</a>
+            <a class="gd-btn gd-btn--ghost" href="contact.html">咨询客服</a>
+          </div>
+        </div>
+        <p class="gd-note">运营者:郑州格一网络科技有限公司 · 豫ICP备2026039037号-1</p>
+      </section>
+
+      <!-- ===================== 6 FAQ ===================== -->
+      <section class="gd-section" id="faq" aria-labelledby="gd-faq-h">
+        <p class="gd-eyebrow">06 / 常见问题</p>
+        <h2 class="gd-h2" id="gd-faq-h">常见问题</h2>
+        <div class="gd-card">
+          <table class="gd-table gd-faq">
+            <tbody>
+              <tr><th>AI面试助手和AI面试辅助工具有什么区别?</th><td>通常指同一类软件,叫法不同。「助手」偏重随时可用、给答题要点;「辅助工具」偏重解决具体环节,如实时提词、简历岗位匹配、笔试辅助、面试复盘。选型看功能不看名字。</td></tr>
+              <tr><th>会不会被面试官发现?</th><td>取决于形态。手机端或窗口化悬浮的,一旦共享屏幕就会暴露;桌面版做成独立置顶悬浮层风险更低,但任何工具都无法保证在所有面试系统下完全不可见。</td></tr>
+              <tr><th>延迟大概多少?</th><td>流式识别 + 流式生成的主流方案,从提问结束到出要点通常 1–3 秒;弱网会明显变长,建议在真实面试环境下实测。</td></tr>
+              <tr><th>怎么收费比较合理?</th><td>面试低频集中,按时长计费通常比月付订阅划算;注意区分「按自然时间扣」和「按实际使用秒数扣」,后者停用即停、余额不清零。</td></tr>
+              <tr><th>录音会上传到云端吗?</th><td>看产品说明。端侧转写的音频不出本机;云端转写会上传语音。涉及敏感信息时优先选端侧转写或可关闭留存的方案。</td></tr>
+              <tr><th>支持哪些设备?</th><td>常见为 Android 手机端 + Windows 桌面端。桌面端适合线上面试,手机端适合电话面试;两端共用账号与余额更方便。</td></tr>
+              <tr><th>用AI面试助手算不算作弊?</th><td>取决于面试方规则。当作准备工具(梳理简历、模拟问答、复盘)没有争议;在明确禁止的面试中使用可能被判违规,请先读面试须知。</td></tr>
+              <tr><th>千帆一答属于哪一类?</th><td>实时辅助类:面试中流式识别提问并给答题要点,同时提供简历/岗位 JD/预设问答准备与赛后复盘;支持 Windows 10/11 与 Android 8.0+,1 小时 ¥29 起。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== 相关 ===================== -->
+      <section class="gd-section" id="related" aria-labelledby="gd-rel-h">
+        <p class="gd-eyebrow">07 / 相关页面</p>
+        <h2 class="gd-h2" id="gd-rel-h">相关页面</h2>
+        <div class="gd-card">
+          <ul class="gd-list">
+            <li><a class="link" href="qianfan-yida.html">千帆一答 · AI面试助手</a> —— 功能、价格、系统要求、购买流程与安装包下载</li>
+            <li><a class="link" href="products.html">产品矩阵</a> —— 格一科技全部 App 与工具</li>
+            <li><a class="link" href="pianyu-shiguang.html">片羽拾光</a> —— 手势驱动相册整理工具</li>
+            <li><a class="link" href="about.html">技术理念</a> —— 我们如何做产品与处理隐私</li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <div class="footer__left">
+        <span class="footer__brand">格一科技</span>
+        <span class="footer__copy">© 2026 郑州格一网络科技有限公司. 保留所有权利。</span>
+        <a class="footer__link" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">豫ICP备2026039037号-1</a>
+        <a class="footer__beian" href="https://beian.mps.gov.cn/#/query/webSearch?code=41010502007988" rel="noreferrer" target="_blank">
+          <img src="assets/ghs.png" alt="公安备案编号图标" width="20" height="20" loading="lazy" />
+          <span class="footer__copy">豫公网安备41010502007988号</span>
+        </a>
+      </div>
+      <nav class="footer__right" aria-label="法务链接">
+        <a class="footer__link" href="#">隐私政策</a>
+        <a class="footer__link" href="#">用户协议</a>
+        <a class="footer__link" href="contact.html">商务合作</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=20261010155821" defer></script>
+</body>
+</html>
