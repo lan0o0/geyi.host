@@ -34,12 +34,19 @@
 | `about.html` | `/about.html` | 技术理念与团队 |
 | `contact.html` | `/contact.html` | 联系我们（留言表单） |
 | `pay/done.html` | `/pay/done.html` | 支付宝电脑网站支付**同步跳转页**（`alipay.return-url` 指向这里） |
+| `pianyu-shiguang.html` | `/pianyu-shiguang.html` | 片羽拾光产品页：功能 / 下载 / 会员 |
+| `ai-interview-assistant.html` | `/ai-interview-assistant.html` | 内容页（SEO 主入口）：AI面试助手 / AI面试辅助工具选型指南 |
+| `ai-interview-assistant-free.html` | `/ai-interview-assistant-free.html` | 内容页：AI面试助手免费吗（免费额度与收费边界） |
+| `ai-interview-assistant-mobile-or-pc.html` | `/ai-interview-assistant-mobile-or-pc.html` | 内容页：AI面试助手用手机还是电脑 |
+| `ai-interview-assistant-screen-share.html` | `/ai-interview-assistant-screen-share.html` | 内容页：共享屏幕会被发现吗（可见性与设置建议） |
 
 ```
 .
-├── index.html  products.html  qianfan-yida.html  about.html  contact.html
+├── index.html  products.html  qianfan-yida.html  pianyu-shiguang.html  about.html  contact.html
+├── ai-interview-assistant*.html  # 4 个 SEO 内容页（选型指南 + 免费/双端/共享屏幕长尾页）
 ├── pay/done.html                 # 支付完成回跳页
 ├── css/style.css                 # 全站样式（含导航下拉、抽屉下载区）
+├── css/guide.css                 # 内容页专用样式（gd- 前缀，4 个内容页共用）
 ├── js/main.js                    # 交互：抽屉 data-* 驱动、下载次数、导航、订阅表单
 ├── assets/  jpg/                 # 图标与产品截图（中文文件名可用，nginx 按 UTF-8 处理）
 ├── robots.txt  sitemap.xml       # SEO（新增页面记得进 sitemap）
@@ -55,7 +62,7 @@
 cd /home/ubuntu/giyi.host
 # 1) 改文件后部署到站点根目录（html 进根、css/js 进各自目录）
 install -m 644 -o root -g root index.html products.html /var/www/html/
-install -m 644 -o root -g root css/style.css /var/www/html/css/
+install -m 644 -o root -g root css/style.css css/guide.css /var/www/html/css/
 install -m 644 -o root -g root js/main.js    /var/www/html/js/
 # 2) 回归（见第 5 节）
 # 3) 提交并推送（push 必须走 ssh.github.com:443，本机 github.com:22/443 不通）
@@ -67,7 +74,7 @@ sudo -u ubuntu git push origin main
 **两条硬性约定**
 
 1. **改了 `css/style.css` 或 `js/main.js`，必须同步更新所有页面里的 `?v=` 版本号**
-   （`href="css/style.css?v=20261010155821"` / `src="js/main.js?v=... "`）。
+   （`href="css/style.css?v=20261010155821"` / `src="js/main.js?v=... "`；`css/guide.css` 同理，当前 `?v=2026102601`）。
    否则用户浏览器会继续用旧 JS —— 典型症状是「页面明明改了，用户却看不到新块」。
 2. 只入库、不上线的文件（`tools/`、`sitecheck/`、`.trae-html-share-packages/`、`README.md`）
    不要 `install` 进 `/var/www/html`。
@@ -93,8 +100,8 @@ HTML 每次向服务器校验 → 改版即时生效；css/js 靠 `?v=` 换版�
 
 | 平台 | 链接 |
 |---|---|
-| Windows 桌面版 | `/download/qianfan-yida-desktop-v0.1.7-windows-x64.exe` |
-| Android | `/download/qianfan-yida-v1.0.53.apk` |
+| Windows 桌面版 | `/download/qianfan-yida-desktop-v0.1.15-windows-x64.exe` |
+| Android | `/download/qianfan-yida-v1.0.62.apk` |
 
 链路：nginx `location /download/` → 计数服务 `127.0.0.1:8099`（`/opt/geyi-downloads/counter.py`，
 systemd 单元 `geyi-download-counter.service`）计数 +1 → 返回 `X-Accel-Redirect: /_apk/<文件>` →
